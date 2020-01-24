@@ -10,6 +10,7 @@ namespace SAOD_Kursovoy.View
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModel.MainViewModel();
         }
     }
 }
