@@ -3,12 +3,32 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SAOD_Kursovoy.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="FlightsPage">
-
+      d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Тут авиарейсы..."/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="table">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ авиарейса"/>
+                <DataGridTextColumn Header="Авиакомпания"/>
+                <DataGridTextColumn Header="Аэропорт отправления"/>
+                <DataGridTextColumn Header="Аэропорт прибытия"/>
+                <DataGridTextColumn Header="Дата отправления"/>
+                <DataGridTextColumn Header="Время отправления"/>
+                <DataGridTextColumn Header="Дата отправления"/>
+                <DataGridTextColumn Header="Время отправления"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DockPanel Grid.Row="1">
+            <Button Content="Поиск по &lt;№ авиарейса&gt;" Command="{Binding FindByFlight}"/>
+            <Button Content="Поиск по &lt;Аэропорт прибытия&gt;" Command="{Binding FindByAirport}"/>
+            <Button Content="Очистить" DockPanel.Dock="Right" Command="{Binding Clear}"/>
+            <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding Remove}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
+            <Button Content="Добавить" DockPanel.Dock="Right" Command="{Binding Add}"/>
+            <Rectangle/>
+        </DockPanel>
     </Grid>
 </Page>

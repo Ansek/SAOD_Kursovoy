@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Service\Command.cs" />
+    <Compile Include="Service\CommandT.cs" />
     <Compile Include="ViewModel\FlightsViewModel.cs" />
     <Compile Include="ViewModel\PassengersViewModel.cs" />
     <Compile Include="ViewModel\TicketsViewModel.cs" />
@@ -121,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
