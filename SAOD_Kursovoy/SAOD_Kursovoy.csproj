@@ -58,6 +58,7 @@
     <Compile Include="Model\Algorithm.cs" />
     <Compile Include="Model\Data\Passenger.cs" />
     <Compile Include="Model\Elements\HashElements.cs" />
+    <Compile Include="Model\HashTable.cs" />
     <Compile Include="Service\Command.cs" />
     <Compile Include="Service\CommandT.cs" />
     <Compile Include="ViewModel\FlightsViewModel.cs" />

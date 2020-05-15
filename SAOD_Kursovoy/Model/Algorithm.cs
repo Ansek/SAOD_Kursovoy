@@ -8,10 +8,14 @@ namespace SAOD_Kursovoy.Model
 {
     static class Algorithm
     {
+        /// <summary>
+        /// Получает хеш-значение на основе ключа. 
+        /// </summary>
+        /// <param name="key">Ключ.</param>
         static int GetHash(string key)
         {
             long d = long.Parse(key.Replace("-", ""));
-            ushort i = (ushort)(d * 40503);
+            ushort i = (ushort)(d * 40503); 
             return Convert.ToInt32(i >> 6);
         }
 

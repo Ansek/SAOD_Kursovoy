@@ -11,7 +11,7 @@ namespace SAOD_Kursovoy.Model.Elements
 		public int Hash
 		{
 			get { return _hash; }
-			set { _hash = value; }
+			set { _hash = value; OnPropertyChanged("Hash"); }
 		}
 
 		private string _key;
@@ -21,7 +21,7 @@ namespace SAOD_Kursovoy.Model.Elements
 		public string Key
 		{
 			get { return _key; }
-			set { _key = value; }
+			set { _key = value; OnPropertyChanged("Key"); }
 		}
 
 		private bool _isDelete;
@@ -31,7 +31,7 @@ namespace SAOD_Kursovoy.Model.Elements
 		public bool IsDelete
 		{
 			get { return _isDelete; }
-			set { _isDelete = value; }
+			set { _isDelete = value; OnPropertyChanged("IsDelete"); }
 		}
 
 		private string _value;
@@ -42,7 +42,7 @@ namespace SAOD_Kursovoy.Model.Elements
 		public string Value
 		{
 			get { return _value; }
-			set { _value = value; }
+			set { _value = value; OnPropertyChanged("Value"); }
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

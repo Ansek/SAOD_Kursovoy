@@ -11,7 +11,7 @@ namespace SAOD_Kursovoy.Model.Data
 		public string Passport
 		{
 			get { return _passport; }
-			set { _passport = value; }
+			set { _passport = value; OnPropertyChanged("Passport"); }
 		}
 
 		private string _placeAndDate;
@@ -21,7 +21,7 @@ namespace SAOD_Kursovoy.Model.Data
 		public string PlaceAndDate
 		{
 			get { return _placeAndDate; }
-			set { _placeAndDate = value; }
+			set { _placeAndDate = value; OnPropertyChanged("PlaceAndDate"); }
 		}
 
 		private string _fio;
@@ -31,7 +31,7 @@ namespace SAOD_Kursovoy.Model.Data
 		public string FIO
 		{
 			get { return _fio; }
-			set { _fio = value; }
+			set { _fio = value; OnPropertyChanged("FIO"); }
 		}
 
 		private string _birthday;
@@ -41,7 +41,7 @@ namespace SAOD_Kursovoy.Model.Data
 		public string Birthday
 		{
 			get { return _birthday; }
-			set { _birthday = value; }
+			set { _birthday = value; OnPropertyChanged("Birthday"); }
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;
