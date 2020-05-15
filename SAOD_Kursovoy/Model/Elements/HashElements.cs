@@ -4,11 +4,11 @@ namespace SAOD_Kursovoy.Model.Elements
 {
     class HashElements<T> : INotifyPropertyChanged
     {
-		private int _hash;
+		private ushort _hash;
 		/// <summary>
 		/// Хеш-значение. 
 		/// </summary>
-		public int Hash
+		public ushort Hash
 		{
 			get { return _hash; }
 			set { _hash = value; OnPropertyChanged("Hash"); }
@@ -34,12 +34,11 @@ namespace SAOD_Kursovoy.Model.Elements
 			set { _isDelete = value; OnPropertyChanged("IsDelete"); }
 		}
 
-		private string _value;
-
+		private T _value;
 		/// <summary>
 		/// Определяет значение, котороые хранит элемент.
 		/// </summary>
-		public string Value
+		public T Value
 		{
 			get { return _value; }
 			set { _value = value; OnPropertyChanged("Value"); }

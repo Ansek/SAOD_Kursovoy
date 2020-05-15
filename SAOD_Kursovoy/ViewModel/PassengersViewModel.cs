@@ -37,27 +37,27 @@ namespace SAOD_Kursovoy.ViewModel
                 switch (Passengers.Count)
                 {
                     case 0:
-                        Passengers.Add(new Passenger
+                        Passengers.Add("4007-395943", new Passenger
                         {
-                            Passport = "0000-000000",
+                            Passport = "4007-395943",
                             PlaceAndDate = "Место 21.06.2002",
                             FIO = "Иванов Иван Иванович",
                             Birthday = "20.03.1970"
                         });
                         break;
                     case 1:
-                        Passengers.Add(new Passenger
+                        Passengers.Add("4009-392042", new Passenger
                         {
-                            Passport = "0000-000001",
+                            Passport = "4009-392042",
                             PlaceAndDate = "Место 22.06.2002",
                             FIO = "Сидоров Иван Иванович",
                             Birthday = "20.03.1975"
                         });
                         break;
                     case 2:
-                        Passengers.Add(new Passenger
+                        Passengers.Add("4001-893939", new Passenger
                         {
-                            Passport = "0000-000002",
+                            Passport = "4001-893939",
                             PlaceAndDate = "Место 23.06.2002",
                             FIO = "Петров Иван Иванович",
                             Birthday = "20.03.1980"

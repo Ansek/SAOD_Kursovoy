@@ -12,11 +12,11 @@ namespace SAOD_Kursovoy.Model
         /// Получает хеш-значение на основе ключа. 
         /// </summary>
         /// <param name="key">Ключ.</param>
-        public static int GetHash(string key)
+        public static ushort GetHash(string key)
         {
             long d = long.Parse(key.Replace("-", ""));
             ushort i = (ushort)(d * 40503); 
-            return Convert.ToInt32(i >> 6);
+            return Convert.ToUInt16(i >> 6);
         }
 
     }

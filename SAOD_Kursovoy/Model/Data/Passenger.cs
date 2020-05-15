@@ -43,7 +43,15 @@ namespace SAOD_Kursovoy.Model.Data
 			get { return _birthday; }
 			set { _birthday = value; OnPropertyChanged("Birthday"); }
 		}
-		
+
+		/// <summary>
+		/// Возвращет данные о пассажире.
+		/// </summary>
+		public override string ToString()
+		{
+			return $"пассажир: {_fio}; паспорт: {_passport}; выдан: {_placeAndDate}; дата рождения: {_birthday}";
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		/// <summary>
 		/// Оповещает об изменении значения свойства.
