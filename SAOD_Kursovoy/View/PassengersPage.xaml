@@ -10,12 +10,12 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="table">
+        <DataGrid x:Name="table" ItemsSource="{Binding Passengers}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№ паспорта"/>
-                <DataGridTextColumn Header="Место и дата выдачи паспорта"/>
-                <DataGridTextColumn Header="ФИО"/>
-                <DataGridTextColumn Header="Дата рождения"/>
+                <DataGridTextColumn Header="№ паспорта" Binding="{Binding Passport}"/>
+                <DataGridTextColumn Header="Место и дата выдачи паспорта" Binding="{Binding PlaceAndDate}"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DockPanel Grid.Row="1">

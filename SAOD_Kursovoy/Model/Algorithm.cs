@@ -12,7 +12,7 @@ namespace SAOD_Kursovoy.Model
         /// Получает хеш-значение на основе ключа. 
         /// </summary>
         /// <param name="key">Ключ.</param>
-        static int GetHash(string key)
+        public static int GetHash(string key)
         {
             long d = long.Parse(key.Replace("-", ""));
             ushort i = (ushort)(d * 40503); 
