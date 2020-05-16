@@ -71,7 +71,8 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command<int>((i) =>
             {
-                System.Windows.MessageBox.Show("Удалить.");
+                //System.Windows.MessageBox.Show("Удалить.");
+                Passengers.Delete("4001-893939");
             });
         }
 
@@ -79,7 +80,8 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                System.Windows.MessageBox.Show("Очистить.");
+                //System.Windows.MessageBox.Show("Очистить.");
+                Passengers.Clear();
             });
         }
     }

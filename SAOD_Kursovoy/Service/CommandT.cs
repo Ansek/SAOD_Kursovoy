@@ -26,8 +26,16 @@ namespace SAOD_Kursovoy.Service
         }
 
         public void Execute(object parameter)
-        {
-            _execute((T)parameter);
+        {            
+            try
+            {
+                _execute((T)parameter);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Ошибка!",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
     }
 }

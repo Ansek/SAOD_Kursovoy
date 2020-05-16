@@ -122,13 +122,58 @@ namespace SAOD_Kursovoy.Model
             Log.Add($"Добавлен объект \"{value}\".\nРазмещение по индексу {i}.");
             _count++;   // Увеличение количества
 
-            // Оповещение об добавлении
+            // Оповещение об изменении коллекции
+            OnCollectionChanged();
+        }
+
+        /// <summary>
+        /// Помечает элемент как удаленный.
+        /// </summary>
+        /// <param name="key">Ключевое значения для хеш-функции.</param>
+        public void Delete(string key)
+        {
+            // Получение индекса на элемент
+            uint i = GetIndex(key);
+
+            // Отметка его на удаление
+            if (_array[i] != null && !_array[i].IsDelete)
+                _array[i].IsDelete = true;
+            else
+                throw new Exception("Ошибка при удалении. Элемент не существует!");
+
+            // Сохранение сообщения в журнале
+            Log.Add($"Удален объект \"{_array[i].Value}\".\nРазмещение по индексу {i}.");
+            _count--;   // Уменьшение количества
+
+            // Оповещение об изменении коллекции
+            OnCollectionChanged();
+        }
+
+        /// <summary>
+        /// Очищает хеш-таблицу от элементов.
+        /// </summary>
+        public void Clear()
+        {
+            // Обнуление всех элементов
+            for (uint i = 0; i < _array.Length; i++)
+                if (_array[i] != null)
+                      _array[i] = null;
+
+            // Установка значений по умолчанию
+            _countSegments = 1;
+            _array = new HashElements<T>[_sizeSegments];
+            _count = 0;
+
+            // Сохранение сообщения в журнале
+            Log.Add($"Список пассажиров очищен.");
+
+            // Оповещение об изменении коллекции
             OnCollectionChanged();
         }
 
         /// <summary>
         /// Возвращает перечислитель для хеш-таблицы. 
-        /// </summary>]
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new HashTableEnumerator<T>(_array);
@@ -166,7 +211,7 @@ namespace SAOD_Kursovoy.Model
         {
             i++; // Увеличиваем индекс
             // Пока элемент пустой 
-            while (i < _array.Length - 1 && _array[i] == null)
+            while (i < _array.Length - 1 && (_array[i] == null || _array[i].IsDelete))
                 i++; // Увеличиваем индекс
             
             return i < _array.Length - 1; // Проверка, что не вышли за границу
