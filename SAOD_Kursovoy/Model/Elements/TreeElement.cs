@@ -1,17 +1,20 @@
-﻿
+﻿using System;
+
 namespace SAOD_Kursovoy.Model.Elements
 {
     class TreeElement<T>
     {
+        private TreeElement<T> _left;
         /// <summary>
         /// Определяет левый узел.
         /// </summary>
-        public TreeElement<T> Left { get; set; }
+        public ref TreeElement<T> Left { get => ref _left; }
 
+        private TreeElement<T> _right;
         /// <summary>
         /// Определяет правый узел.
         /// </summary>
-        public TreeElement<T> Right { get; set; }
+        public ref TreeElement<T> Right { get => ref _right; }
 
         /// <summary>
         /// Ключевое значение узла.
@@ -30,17 +33,28 @@ namespace SAOD_Kursovoy.Model.Elements
         public uint Height { get => _height; }
 
         /// <summary>
+        /// Узел дерева. 
+        /// </summary>
+        /// <param name="key">Ключевое значение элемента.</param>
+        /// <param name="value">Определяет значение, которое хранит элемент.</param>
+        public TreeElement(string key, T value)
+        {
+            Key = key;
+            Value = value;
+        }
+
+        /// <summary>
         /// Вычисляет баланс данного поддерева. 
         /// </summary>
-        public uint BalanceFactor
+        public int BalanceFactor
         {
             get
             {
                 // Получение высот левых и правых поддеревьев
-                uint heightL = Left != null ? Left.Height : 0;
-                uint heightR = Right != null ? Right.Height : 0;
+                uint heightL = _left != null ? _left.Height : 0;
+                uint heightR = _right != null ? _right.Height : 0;
                 // Вычисление баланса
-                return heightR - heightL;
+                return Convert.ToInt32(heightR - heightL);
             }
         }
         
@@ -50,8 +64,8 @@ namespace SAOD_Kursovoy.Model.Elements
         public void RefreshHeight()
         {
             // Получение высот левых и правых поддеревьев
-            uint heightL = Left != null ? Left.Height : 0;
-            uint heightR = Right != null ? Right.Height : 0;
+            uint heightL = _left != null ? _left.Height : 0;
+            uint heightR = _right != null ? _right.Height : 0;
             // Определенение новой высоты
             _height = ((heightL > heightR) ? heightL : heightR) + 1;
         }

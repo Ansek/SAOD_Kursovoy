@@ -36,7 +36,7 @@ namespace SAOD_Kursovoy.Model.Elements
 
 		private T _value;
 		/// <summary>
-		/// Определяет значение, котороые хранит элемент.
+		/// Определяет значение, которое хранит элемент.
 		/// </summary>
 		public T Value
 		{
