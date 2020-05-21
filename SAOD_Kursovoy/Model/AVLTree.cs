@@ -154,7 +154,7 @@ namespace SAOD_Kursovoy.Model
         }
 
         /// <summary>
-        /// Удаление элемента. Возвращает, успешно ли удаленный элемент.
+        /// Удаление элемент из дерева.
         /// </summary>
         /// <param name="key">Ключевое значение узла.</param>
         public void Delete(string key)

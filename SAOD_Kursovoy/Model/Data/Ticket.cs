@@ -33,13 +33,23 @@ namespace SAOD_Kursovoy.Model.Data
 			get { return _passport; }
 			set { _passport = value; OnPropertyChanged("Passport"); }
 		}
+		
+		// Переопределение операторов сравнения
+		public override bool Equals(object obj)
+		{
+			Ticket a = this;
+			Ticket b = obj as Ticket;
+			if (a == null || b == null)
+				return false;
+			return a._number == b._number && a._flight == b._flight;
+		}
 
 		/// <summary>
 		/// Возвращет данные о билете.
 		/// </summary>
 		public override string ToString()
 		{
-			return $"№ авиабилета: {_number}; № авиарейса: {_flight}; № паспорта  {_passport}.";
+			return $"№ авиабилета: {_number}; № авиарейса: {_flight}; № паспорта {_passport}.";
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
