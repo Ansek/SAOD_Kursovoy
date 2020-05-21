@@ -162,10 +162,10 @@ namespace SAOD_Kursovoy.Model
             // Установка значений по умолчанию
             _countSegments = 1;
             _array = new HashElements<T>[_sizeSegments];
-            _count = 0;
+            _count = 0; // Обнуление количества
 
             // Сохранение сообщения в журнале
-            Log.Add($"Список пассажиров очищен.");
+            Log.Add($"Список хеш-таблицы очищен.");
 
             // Оповещение об изменении коллекции
             OnCollectionChanged();
@@ -198,7 +198,7 @@ namespace SAOD_Kursovoy.Model
         private HashElements<T>[] _array; // Массив элементов
         private int i;  // Указывает позицию текущего элемента
 
-        //Конструктор для получения массива
+        // Конструктор для получения массива
         public HashTableEnumerator(HashElements<T>[] array)
         {
             _array = array;
@@ -222,8 +222,5 @@ namespace SAOD_Kursovoy.Model
         {
             i = -1;
         }
-
-        // Освобождает ресурсы
-        public void Dispose() { }
     }
 }

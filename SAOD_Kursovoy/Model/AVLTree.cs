@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model.Elements;
 
@@ -8,9 +10,19 @@ namespace SAOD_Kursovoy.Model
     /// <summary>
     /// АВЛ-дерево.
     /// </summary>
-    class AVLTree<T>
+    class AVLTree<T> : IEnumerable, INotifyCollectionChanged
     {
-        TreeElement<T> _root;   // Корень дерева
+        private TreeElement<T> _root;   // Корень дерева
+
+        private uint _count = 0;
+        /// <summary>
+        /// Определяет количество элементов в дереве.
+        /// </summary>
+        public uint Count
+        {
+            get { return _count; }
+            set { _count = value; }
+        }
 
         /// <summary>
         /// Вращение поддерева влево.
@@ -135,6 +147,10 @@ namespace SAOD_Kursovoy.Model
                 BalanceTree(path); // Балансировка дерева
             }
             Log.Add($"Добавлен объект \"{value}\".\nЗначение ключа: {key}.");
+            _count++;   // Увеличение количества
+
+            // Оповещение об изменении коллекции
+            OnCollectionChanged();
         }
 
         /// <summary>
@@ -203,6 +219,10 @@ namespace SAOD_Kursovoy.Model
 
                 BalanceTree(path); // Балансировка дерева
                 Log.Add($"Удален объект \"{node.Value}\".\nЗначение ключа: {key}.");
+                _count--;   // Уменьшение количества
+
+                // Оповещение об изменении коллекции
+                OnCollectionChanged();
             }
         }
 
@@ -214,6 +234,48 @@ namespace SAOD_Kursovoy.Model
             //Удаляем, пока не будет пуст корень
             while (_root != null)
                 Delete(_root.Key);
+            _count = 0; // Обнуление количества
+
+            // Сохранение сообщения в журнале
+            Log.Add($"Список дерева очищен.");
+
+            // Оповещение об изменении коллекции
+            OnCollectionChanged();
+        }
+        
+        /// <summary>
+        /// Рекурсивный обратный обход дерева.
+        /// </summary>
+        /// <param name="node">Текущий узел дерева.</param>
+        public IEnumerable<T> LastOrder(TreeElement<T> node)
+        {
+            if (node != null) // Перебор значений
+            {
+                foreach (var n in LastOrder(node.Left))
+                    yield return n;                
+                foreach (var n in LastOrder(node.Right))
+                    yield return n;
+                yield return node.Value;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает перечислитель для АВЛ-дерева. 
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            foreach (var node in LastOrder(_root))
+                yield return node;
+        }
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        /// <summary>
+        /// Оповещает об изменении в коллекции.
+        /// </summary>
+        public void OnCollectionChanged()
+        {
+            // Параметр Reset используется, чтобы сохранить порядок элементов коллекции
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
     }
 }
