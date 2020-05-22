@@ -92,6 +92,7 @@ namespace SAOD_Kursovoy.Model
 
 			Log.Add($"Добавлен объект \"{value}\".");
 			_count++;   // Увеличение количества
+			Sort();
 
 			// Оповещение об изменении коллекции
 			OnCollectionChanged();
@@ -149,7 +150,47 @@ namespace SAOD_Kursovoy.Model
 			// Оповещение об изменении коллекции
 			OnCollectionChanged();
 		}
-			   
+
+		// Просмотреть элементы и найти максимум
+		// Поменять его с последним из неотсортированным
+		public void Sort()
+		{
+			if (_current != null)
+			{
+				if (!(_current.Value is IComparable))
+					throw new Exception("Ошибка при сортировке! Элемент не реализует IComparable!");
+
+				var end = _current;
+				var max = _current;
+				while (_current.Next != end)
+				{
+					var p = _current.Next;
+
+					// Поиск максимального значения
+					IComparable c;
+					while (p.Next != end)
+					{
+						c = p.Value as IComparable;
+						if (c.CompareTo(max.Value) > 0)
+							max = p;
+						p = p.Next; 
+					}
+					// Дополнительная проверка для предпоследнего элемента
+					c = p.Value as IComparable;
+					if (c.CompareTo(max.Value) > 0)
+						max = p;
+					// Перестановка элементов
+					var temp = max.Value;
+					max.Value = end.Value;
+					end.Value = temp;
+					// Сужение поиска
+					end = p;
+					max = p;
+				}
+				_current = end; // Установка наименьшего значения как текущего
+			}
+		}
+
 		/// <summary>
 		/// Возвращает перечислитель для списка. 
 		/// </summary>

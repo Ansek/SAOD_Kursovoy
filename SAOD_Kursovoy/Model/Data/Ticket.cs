@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace SAOD_Kursovoy.Model.Data
 {
-    class Ticket : INotifyPropertyChanged
+    class Ticket : INotifyPropertyChanged, IComparable
 	{
 		private string _number;
 		/// <summary>
@@ -44,9 +45,19 @@ namespace SAOD_Kursovoy.Model.Data
 			return a._number == b._number && a._flight == b._flight;
 		}
 
-		/// <summary>
-		/// Возвращет данные о билете.
-		/// </summary>
+		// Задает логику сравнения двух объектов
+		public int CompareTo(object obj)
+		{
+			Ticket a = this;
+			Ticket b = obj as Ticket;
+			if (a._flight == b._flight) // Сравнение сначала по авиарейсам
+			{
+				return a._number.CompareTo(b._number); // Потом по номеру билета
+			}
+			return a._flight.CompareTo(b._flight);
+		}
+
+		// Возвращает данные о билете.
 		public override string ToString()
 		{
 			return $"№ авиабилета: {_number}; № авиарейса: {_flight}; № паспорта {_passport}.";
