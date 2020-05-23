@@ -11,6 +11,20 @@ namespace SAOD_Kursovoy.ViewModel
         public FlightsViewModel()
         {
             Flights = new AVLTree<Flight>();
+            // Проверка сдвигов для символов не входящих в слово
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABCAB1ABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABCA2DABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABC3BDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "AB4ABDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "A5CABDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "6BCABDABCABD"));
+            // Проверка сдвигов для символов на входящих в слово
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABCABAABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABCABDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABCCBDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "ABDABDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "AACABDABCABD"));
+            System.Console.WriteLine(Algorithm.SearchBM("ABCABD", "BBCABDABCABD"));
         }
 
         public Command FindByFlight
