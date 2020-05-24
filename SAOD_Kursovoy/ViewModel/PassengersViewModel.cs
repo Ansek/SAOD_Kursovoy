@@ -7,10 +7,12 @@ namespace SAOD_Kursovoy.ViewModel
     class PassengersViewModel
     {
         public HashTable<Passenger> Passengers { get; set; }
+        private InvertedList _list;
 
         public PassengersViewModel()
         {
             Passengers = new HashTable<Passenger>(Algorithm.GetHash);
+            _list = new InvertedList();
         }
 
         public Command FindByPassport
@@ -25,7 +27,10 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                System.Windows.MessageBox.Show("Поиск по <ФИО>.");
+                //System.Windows.MessageBox.Show("Поиск по <ФИО>.");
+                var result = _list.Find("Иван Иванович");
+                foreach (var res in result)
+                    System.Windows.MessageBox.Show(res);
             });
         }
 
@@ -44,6 +49,7 @@ namespace SAOD_Kursovoy.ViewModel
                             FIO = "Иванов Иван Иванович",
                             Birthday = "20.03.1970"
                         });
+                        _list.Add("Иванов Иван Иванович", "4007-395943");
                         break;
                     case 1:
                         Passengers.Add("4009-392042", new Passenger
@@ -53,6 +59,7 @@ namespace SAOD_Kursovoy.ViewModel
                             FIO = "Сидоров Иван Иванович",
                             Birthday = "20.03.1975"
                         });
+                        _list.Add("Сидоров Иван Иванович", "4009-392042");
                         break;
                     case 2:
                         Passengers.Add("4001-893939", new Passenger
@@ -62,6 +69,17 @@ namespace SAOD_Kursovoy.ViewModel
                             FIO = "Петров Иван Иванович",
                             Birthday = "20.03.1980"
                         });
+                        _list.Add("Петров Иван Иванович", "4001-893939");
+                        break;
+                    case 3:
+                        Passengers.Add("4001-893943", new Passenger
+                        {
+                            Passport = "4001-893943",
+                            PlaceAndDate = "Место 23.06.2002",
+                            FIO = "Федоров Максим Иванович",
+                            Birthday = "20.03.1980"
+                        });
+                        _list.Add("Федоров Максим Иванович", "4001-893943");
                         break;
                 }
             });
@@ -73,6 +91,7 @@ namespace SAOD_Kursovoy.ViewModel
             {
                 //System.Windows.MessageBox.Show("Удалить.");
                 Passengers.Delete("4001-893939");
+                _list.Delete("Петров Иван Иванович", "4001-893939");
             });
         }
 

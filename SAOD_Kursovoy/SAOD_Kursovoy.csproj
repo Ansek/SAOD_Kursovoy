@@ -64,6 +64,8 @@
     <Compile Include="Model\Elements\ListElement.cs" />
     <Compile Include="Model\Elements\TreeElement.cs" />
     <Compile Include="Model\HashTable.cs" />
+    <Compile Include="Model\Elements\InvertedIndex.cs" />
+    <Compile Include="Model\InvertedList.cs" />
     <Compile Include="Model\List.cs" />
     <Compile Include="Service\Command.cs" />
     <Compile Include="Service\CommandT.cs" />

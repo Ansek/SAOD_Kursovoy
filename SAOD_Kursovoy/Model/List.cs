@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model.Elements;
 
 namespace SAOD_Kursovoy.Model
 {
-    class List<T> : IEnumerable, INotifyCollectionChanged
+    class List<T> : IEnumerable<T>, INotifyCollectionChanged
 	{
 		private ListElement<T> _current; // Текущий просматриваемый элемент
+
+		/// <summary>
+		/// Возвращает текущее просматриваемое значение.
+		/// </summary>
+		public T Current => (_current != null) ? _current.Value : default(T);
 
 		private uint _count = 0;
 		/// <summary>
@@ -31,12 +37,15 @@ namespace SAOD_Kursovoy.Model
 			{
 				var p = _current.Value; // Сохранение места начала поиска
 				do
-				{   // Сообщаем если следующия элемент является искомым
+				{   // Сообщаем если следующий элемент является искомым
 					if (value.Equals(_current.Next.Value))
 						return true;
 					_current = _current.Next; // Переход к следующей записи
 				}
 				while (!p.Equals(_current.Next.Value)); // Проходим, пока не вернемся к началу
+				// Сообщаем если следующий элемент является искомым
+				if (value.Equals(_current.Next.Value))
+				return true;
 			}
 			return false;
 		}
@@ -46,7 +55,7 @@ namespace SAOD_Kursovoy.Model
 		/// Останавливает _current на искомом элементе.
 		/// </summary>
 		/// <param name="value">Искомое значение.</param>
-		private bool Find(T value)
+		public bool Find(T value)
 		{
 			bool res = false;
 			if (_current != null)
@@ -199,6 +208,14 @@ namespace SAOD_Kursovoy.Model
 			return new ListEnumerator<T>(_current);
 		}
 
+		/// <summary>
+		/// Возвращает перечислитель для списка. 
+		/// </summary>
+		public IEnumerator<T> GetEnumerator()
+		{
+			return new ListEnumerator<T>(_current);
+		}
+
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
 		/// <summary>
 		/// Оповещает об изменении в коллекции.
@@ -213,7 +230,7 @@ namespace SAOD_Kursovoy.Model
 	/// <summary>
 	/// Перечеслитель для элементов списка.
 	/// </summary>
-	class ListEnumerator<T> : IEnumerator
+	class ListEnumerator<T> : IEnumerator<T>
 	{
 		private ListElement<T> _current; // Текущий просматриваемый элемент
 		private T _p;	// Первое значение, для остановки просмотра списка
@@ -224,7 +241,9 @@ namespace SAOD_Kursovoy.Model
 		{
 			_current = current;
 		}
-		
+
+		public T Current => _current.Value; // Текущий элемент
+
 		object IEnumerator.Current => _current.Value; // Текущий элемент
 
 		// Перемещает перечислитель к следующему элементу коллекции
@@ -252,6 +271,10 @@ namespace SAOD_Kursovoy.Model
 		public void Reset()
 		{
 			is_begin = false;
+		}
+
+		public void Dispose()
+		{
 		}
 	}
 }

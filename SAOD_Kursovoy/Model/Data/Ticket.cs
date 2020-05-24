@@ -35,7 +35,7 @@ namespace SAOD_Kursovoy.Model.Data
 			set { _passport = value; OnPropertyChanged("Passport"); }
 		}
 		
-		// Переопределение операторов сравнения
+		// Переопределение функции равенства 
 		public override bool Equals(object obj)
 		{
 			Ticket a = this;

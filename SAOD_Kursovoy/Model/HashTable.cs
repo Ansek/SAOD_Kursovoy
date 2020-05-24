@@ -211,10 +211,10 @@ namespace SAOD_Kursovoy.Model
         {
             i++; // Увеличиваем индекс
             // Пока элемент пустой 
-            while (i < _array.Length - 1 && (_array[i] == null || _array[i].IsDelete))
+            while (i < _array.Length && (_array[i] == null || _array[i].IsDelete))
                 i++; // Увеличиваем индекс
             
-            return i < _array.Length - 1; // Проверка, что не вышли за границу
+            return i < _array.Length; // Проверка, что не вышли за границу
         }
 
         // Установка перечислителя в начальное положение
