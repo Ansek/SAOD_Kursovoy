@@ -76,8 +76,14 @@
     <Compile Include="View\FindByAirportPage.xaml.cs">
       <DependentUpon>FindByAirportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FindByFIOPage.xaml.cs">
+      <DependentUpon>FindByFIOPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FindByFlightPage.xaml.cs">
       <DependentUpon>FindByFlightPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FindByPassportPage.xaml.cs">
+      <DependentUpon>FindByPassportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FlightsPage.xaml.cs">
       <DependentUpon>FlightsPage.xaml</DependentUpon>
@@ -96,7 +102,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FindByFIOPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FindByFlightPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FindByPassportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

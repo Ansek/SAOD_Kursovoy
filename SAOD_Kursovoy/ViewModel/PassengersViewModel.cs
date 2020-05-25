@@ -1,13 +1,41 @@
 ﻿using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model;
 using SAOD_Kursovoy.Model.Data;
+using ResFindP = System.Tuple<SAOD_Kursovoy.Model.Data.Passenger, SAOD_Kursovoy.Model.List<string>>;
+using ResFindF = System.Tuple<string, string>;
+using System.ComponentModel;
 
 namespace SAOD_Kursovoy.ViewModel
 {
-    class PassengersViewModel
+    class PassengersViewModel : INotifyPropertyChanged
     {
         public HashTable<Passenger> Passengers { get; set; }
         private InvertedList _list;
+
+        /// <summary>
+        /// Содержит результат поиска пассажира по № пасспорта.
+        /// </summary>
+        public ResFindP ResultFindByPassport { get; set; }
+
+        /// <summary>
+        /// Содержит результат поиска пассажира по ФИО.
+        /// </summary>
+        public List<ResFindF> ResultFindByFIO { get; set; }
+
+        /// <summary>
+        /// Для хранения текущей страницы поиска
+        /// </summary>
+        public object PageFind { get; set; }
+
+        private string _current;
+        /// <summary>
+        /// Поле для связывания основной таблицы и результата запроса.
+        /// </summary>
+        public string Current
+        {
+            get { return _current; }
+            set { _current = value; OnPropertyChanged("Current"); }
+        }
 
         public PassengersViewModel()
         {
@@ -15,23 +43,49 @@ namespace SAOD_Kursovoy.ViewModel
             _list = new InvertedList();
         }
 
-        public Command FindByPassport
+        public Command<string> FindByPassport
         {
-            get => new Command(() =>
+            get => new Command<string>((key) =>
             {
-                System.Windows.MessageBox.Show("Поиск по <№ паспорта>.");
-            });
+                var passengers = Passengers.Find(key);
+                if (passengers != null)
+                {
+                    var list = new List<string>();
+                    var win = App.Current.MainWindow as View.MainWindow;
+                    var tickets = (win.TicketsVM as TicketsViewModel).Tickets;
+                    foreach (var el in tickets)
+                        if (el.Passport == passengers.Passport)
+                            list.Add(el.Flight);
+                    ResultFindByPassport = new ResFindP(passengers, list);
+                    Current = passengers.Passport;
+                    OnPropertyChanged("Current");
+                }
+                else
+                    ResultFindByPassport = null;
+                OnPropertyChanged("ResultFindByPassport");
+            }, (key) => key != "");
         }
 
-        public Command FindByFIO
+        public Command<string> FindByFIO
         {
-            get => new Command(() =>
+            get => new Command<string>((fio) =>
             {
-                //System.Windows.MessageBox.Show("Поиск по <ФИО>.");
-                var result = _list.Find("Иван Иванович");
-                foreach (var res in result)
-                    System.Windows.MessageBox.Show(res);
-            });
+                var result = _list.Find(fio);
+                if (result != null)
+                {
+                    ResultFindByFIO = new List<ResFindF>();
+                    foreach (var res in result)
+                    {
+                        var p = Passengers.Find(res);
+                        // Cохранение номера пасспорта и фамилии
+                        var r = new ResFindF(p.Passport, p.FIO);
+                        ResultFindByFIO.Add(r);
+                    }
+                }
+                else
+                    ResultFindByFIO = null;
+                OnPropertyChanged("ResultFindByFIO");
+            }, (fio) => fio != "");
         }
 
         public Command Add
@@ -102,6 +156,25 @@ namespace SAOD_Kursovoy.ViewModel
                 //System.Windows.MessageBox.Show("Очистить.");
                 Passengers.Clear();
             });
+        }
+
+        public Command<object> SetPageFind
+        {
+            get => new Command<object>((page) =>
+            {
+                PageFind = page;
+                OnPropertyChanged("PageFind");
+            });
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Оповещает об изменении значения свойства.
+        /// </summary>
+        /// <param name="name">Имя свойства.</param>
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
