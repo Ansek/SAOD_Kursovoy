@@ -11,25 +11,27 @@ namespace SAOD_Kursovoy.ViewModel
         public TicketsViewModel()
         {
             Tickets = new List<Ticket>();
-            
-            Tickets.Add(new Ticket() { Number = "000111232", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111228", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111224", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111222", Flight = "ABC-003" });
-            Tickets.Add(new Ticket() { Number = "000111229", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111225", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111220", Flight = "ABC-001" });
-            Tickets.Add(new Ticket() { Number = "000111223", Flight = "ABC-004" });
-            Tickets.Add(new Ticket() { Number = "000111227", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111221", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111226", Flight = "ABC-005" });
-            Tickets.Add(new Ticket() { Number = "000111218", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111219", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111217", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111231", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111234", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111233", Flight = "ABC-002" });
-            Tickets.Add(new Ticket() { Number = "000111236", Flight = "ABC-002" }); /// Проблема с последним.
+        }
+
+        private string SumString(string str)
+        {
+            int sum = 0;
+            foreach (var c in str)
+                sum += c;
+            return sum.ToString().Substring(0, 2);
+        }
+
+        public void OnAddFlight(Flight flight)
+        {
+            var part = SumString(flight.Airline) + 
+                       SumString(flight.ArrivalAirport + flight.DeparturesDate) +
+                       SumString(flight.DeparturesAirport + flight.DeparturesTime);
+            for (int i = 0; i < flight.NumberOfSeatsAll; i++)
+            {
+                var num = part + i.ToString("000").Substring(0, 3);
+                Tickets.Add(new Ticket(num, flight.Number));
+            }
+                
         }
 
         public Command<int> Sell
@@ -37,8 +39,16 @@ namespace SAOD_Kursovoy.ViewModel
             get => new Command<int>((i) =>
             {
                 //System.Windows.MessageBox.Show("Продать.");
-                Tickets.Clear();
-                
+                //Tickets.Clear();
+                Tickets.Find(new Ticket("645867001", "ABC-003"));
+                Tickets.Current.Passport = "4007-395943";
+                Tickets.Find(new Ticket("645867005", "ABC-003"));
+                Tickets.Current.Passport = "4009-392042";
+                Tickets.Find(new Ticket("645867003", "ABC-003"));
+                Tickets.Current.Passport = "4001-893939";
+                Tickets.Find(new Ticket("645867007", "ABC-003"));
+                Tickets.Current.Passport = "4001-893943";
+                Tickets.OnCollectionChanged();
             });
         }
 
@@ -47,8 +57,8 @@ namespace SAOD_Kursovoy.ViewModel
             get => new Command<int>((i) =>
             {
                 //System.Windows.MessageBox.Show("Вернуть.");
-                Tickets.Delete(new Ticket() { Number = "000111220", Flight = "ABC-001" });
-                Tickets.Delete(new Ticket() { Number = "000111222", Flight = "ABC-003" });
+                //Tickets.Delete(new Ticket() { Number = "000111220", Flight = "ABC-001" });
+                //Tickets.Delete(new Ticket() { Number = "000111222", Flight = "ABC-003" });
             });
         }
     }

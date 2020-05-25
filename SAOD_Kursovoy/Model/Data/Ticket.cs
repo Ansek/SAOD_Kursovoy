@@ -35,6 +35,12 @@ namespace SAOD_Kursovoy.Model.Data
 			set { _passport = value; OnPropertyChanged("Passport"); }
 		}
 		
+		public Ticket(string number, string flight)
+		{
+			_number = number;
+			_flight = flight;
+		}
+
 		// Переопределение функции равенства 
 		public override bool Equals(object obj)
 		{

@@ -10,7 +10,8 @@ namespace SAOD_Kursovoy.View
         public FlightsPage()
         {
             InitializeComponent();
-            DataContext = new ViewModel.FlightsViewModel();
+            var mw = App.Current.MainWindow as MainWindow;
+            DataContext = mw.FlightsVM;
         }
     }
 }

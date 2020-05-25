@@ -10,7 +10,8 @@ namespace SAOD_Kursovoy.View
         public TicketsPage()
         {
             InitializeComponent();
-            DataContext = new ViewModel.TicketsViewModel();
+            var mw = App.Current.MainWindow as MainWindow;
+            DataContext = mw.TicketsVM = new ViewModel.TicketsViewModel();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using SAOD_Kursovoy.ViewModel;
 
 namespace SAOD_Kursovoy.View
 {
@@ -7,10 +8,20 @@ namespace SAOD_Kursovoy.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public object TicketsVM { get; set; }
+        public object PassengersVM { get; set; }
+        public object FlightsVM { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel.MainViewModel();
+            DataContext = new MainViewModel();
+            PassengersVM = new PassengersViewModel();
+            FlightsVM = new FlightsViewModel();
+
+            // Связь событий с другими станицами
+            (FlightsVM as FlightsViewModel).AddFlight += (TicketsVM as TicketsViewModel).OnAddFlight;
         }
+
     }
 }

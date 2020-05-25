@@ -10,7 +10,8 @@ namespace SAOD_Kursovoy.View
         public PassengersPage()
         {
             InitializeComponent();
-            DataContext = new ViewModel.PassengersViewModel();
+            var mw = App.Current.MainWindow as MainWindow;
+            DataContext = mw.PassengersVM;
         }
     }
 }

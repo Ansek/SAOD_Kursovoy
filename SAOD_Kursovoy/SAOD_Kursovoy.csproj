@@ -73,6 +73,12 @@
     <Compile Include="ViewModel\FlightsViewModel.cs" />
     <Compile Include="ViewModel\PassengersViewModel.cs" />
     <Compile Include="ViewModel\TicketsViewModel.cs" />
+    <Compile Include="View\FindByAirportPage.xaml.cs">
+      <DependentUpon>FindByAirportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FindByFlightPage.xaml.cs">
+      <DependentUpon>FindByFlightPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FlightsPage.xaml.cs">
       <DependentUpon>FlightsPage.xaml</DependentUpon>
     </Compile>
@@ -82,6 +88,18 @@
     <Compile Include="View\TicketsPage.xaml.cs">
       <DependentUpon>TicketsPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Service\Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FindByAirportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FindByFlightPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FlightsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -94,6 +94,16 @@ namespace SAOD_Kursovoy.Model
         }
 
         /// <summary>
+        /// Возвращает значение, связанное с ключом хеш-таблицы.
+        /// </summary>
+        /// <param name="key">Ключевое значение.</param>
+        public T Find(string key)
+        {
+            var el = _array[GetIndex(key)];
+            return (el != null) ? el.Value : default(T);
+        }
+
+        /// <summary>
         /// Добавляет элемент в хеш-таблицу.
         /// </summary>
         /// <param name="key">Ключевое значения для хеш-функции.</param>

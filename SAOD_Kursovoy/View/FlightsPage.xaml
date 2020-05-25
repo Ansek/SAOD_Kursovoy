@@ -3,14 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:view="clr-namespace:SAOD_Kursovoy.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
+    <Page.Resources>
+        <view:FindByFlightPage Width="1" x:Key="uriFindByFlight"/>
+        <view:FindByAirportPage Width="1" x:Key="uriFindByAirport"/>
+    </Page.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="table" ItemsSource="{Binding Flights}">
+        <DataGrid x:Name="table" ItemsSource="{Binding Flights}"
+                  SelectedValuePath="Number" SelectedValue="{Binding Current}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№ авиарейса" Binding="{Binding Number}"/>
                 <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Airline}"/>
@@ -22,9 +32,37 @@
                 <DataGridTextColumn Header="Мест осталось" Binding="{Binding NumberOfSeatsFree}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DockPanel Grid.Row="1">
-            <Button Content="Поиск по &lt;№ авиарейса&gt;" Command="{Binding FindByFlight}"/>
-            <Button Content="Поиск по &lt;Аэропорт прибытия&gt;" Command="{Binding FindByAirport}"/>
+        <Frame Grid.Column="1" Content="{Binding PageFind}"/>
+
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Button Content="Поиск по &lt;№ авиарейса&gt;" 
+                    Command="{Binding SetPageFind}" CommandParameter="{StaticResource uriFindByFlight}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard Target="{StaticResource uriFindByFlight}" TargetProperty="Width">
+                                    <DoubleAnimation Duration="0:0:0.5" From="1" To="300"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Content="Поиск по &lt;Аэропорт прибытия&gt;"
+                    Command="{Binding SetPageFind}" CommandParameter="{StaticResource uriFindByAirport}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard Target="{StaticResource uriFindByAirport}" TargetProperty="Width">
+                                    <DoubleAnimation Duration="0:0:0.5" From="1" To="300"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
             <Button Content="Очистить" DockPanel.Dock="Right" Command="{Binding Clear}"/>
             <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding Remove}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
             <Button Content="Добавить" DockPanel.Dock="Right" Command="{Binding Add}"/>

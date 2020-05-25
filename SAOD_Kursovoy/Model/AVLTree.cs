@@ -118,8 +118,8 @@ namespace SAOD_Kursovoy.Model
         /// <param name="key">Ключевое значение узла.</param>
         public T Find(string key)
         {
-            var node = FindPath(key)?.Peek();                   // Поиск пути
-            return (node != null) ? node.Value : default(T);    // Возвращение значения
+            var node = FindPath(key)?.Peek();   // Поиск пути
+            return (node != null && node.Key == key) ? node.Value : default(T);    // Возвращение значения
         }
 
         /// <summary>
