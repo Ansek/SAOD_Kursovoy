@@ -10,7 +10,7 @@ namespace SAOD_Kursovoy.Model
     /// <summary>
     /// АВЛ-дерево.
     /// </summary>
-    class AVLTree<T> : IEnumerable, INotifyCollectionChanged
+    class AVLTree<T> : IEnumerable<T>, INotifyCollectionChanged
     {
         private TreeElement<T> _root;   // Корень дерева
 
@@ -263,6 +263,15 @@ namespace SAOD_Kursovoy.Model
         /// Возвращает перечислитель для АВЛ-дерева. 
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
+        {
+            foreach (var node in LastOrder(_root))
+                yield return node;
+        }
+
+        /// <summary>
+        /// Возвращает перечислитель для АВЛ-дерева. 
+        /// </summary>
+        public IEnumerator<T> GetEnumerator()
         {
             foreach (var node in LastOrder(_root))
                 yield return node;

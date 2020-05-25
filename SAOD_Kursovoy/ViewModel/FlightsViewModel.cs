@@ -39,7 +39,10 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                System.Windows.MessageBox.Show("Поиск по <Аэропорт прибытия>.");
+                //System.Windows.MessageBox.Show("Поиск по <Аэропорт прибытия>.");
+                var result = Algorithm.FindFlight(Flights, "верь");
+                foreach (var res in result)
+                    System.Windows.MessageBox.Show(res);
             });
         }
 
@@ -71,6 +74,7 @@ namespace SAOD_Kursovoy.ViewModel
                         break;
                     case 2:
                         flight.Number = "ABC-003";
+                        flight.ArrivalAirport = "Тверь";
                         Flights.Add(flight.Number, flight);
                         break;
                     case 3:
@@ -87,6 +91,7 @@ namespace SAOD_Kursovoy.ViewModel
                         break;
                     case 6:
                         flight.Number = "ABC-007";
+                        flight.ArrivalAirport = "Тверь";
                         Flights.Add(flight.Number, flight);
                         break;
                     case 7:

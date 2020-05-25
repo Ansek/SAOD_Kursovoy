@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SAOD_Kursovoy.Model.Data;
 
 namespace SAOD_Kursovoy.Model
 {
@@ -27,10 +24,10 @@ namespace SAOD_Kursovoy.Model
         public static bool SearchBM(string word, string text)
         {
             // Создание массива Shift
-            int[] shift = new int['Z' + 1];
+            int[] shift = new int['я' + 1];
             int i, j;
 
-            for (i = 0; i <= 'Z'; i++)
+            for (i = 0; i <= 'я'; i++)
                 shift[i] = word.Length;     // Длина слова как длина сдвига по умолчанию
             for (j = 0; j < word.Length - 1; j++)
                 shift[word[j]] = word.Length - j - 1;   // Установка сдвига для каждого символа слова
@@ -48,6 +45,22 @@ namespace SAOD_Kursovoy.Model
                     i += shift[text[i + j]];
             }
             return j < 0;
+        }
+
+        /// <summary>
+        /// Поиск авиарейса по фрагментам названия аэропорта прибытия.
+        /// </summary>
+        /// <param name="tree">Дерево, содержащее данные об авиарейсах.</param>
+        /// <param name="word">Фрагмент названия аэропорта прибытия.</param>
+        public static List<string> FindFlight(AVLTree<Flight> tree, string word)
+        {
+            var list = new List<string>();
+            // Просмотр элементов дерева по обратному обходу дерева
+            foreach (var el in tree)
+                if (SearchBM(word, el.ArrivalAirport)) // Применение алгоритма Боуера и Мура.
+                    list.Add(el.Number);
+
+            return (list.Count > 0) ? list : null;
         }
     }
 }
