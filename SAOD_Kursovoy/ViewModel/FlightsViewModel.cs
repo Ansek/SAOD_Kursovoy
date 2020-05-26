@@ -12,7 +12,8 @@ namespace SAOD_Kursovoy.ViewModel
     class FlightsViewModel : INotifyPropertyChanged
     {
         public event Action<Flight> AddFlight;
-        public event Action<Flight> DeleteFlight;
+        public event Action<string> DeleteFlight;
+        public event Action ClearFlight;
 
         /// <summary>
         /// Содержит данные об авиарейсах в виде дерева.
@@ -111,6 +112,7 @@ namespace SAOD_Kursovoy.ViewModel
                     var f = d.DataContext as Flight;
                     f.NumberOfSeatsFree = f.NumberOfSeatsAll;
                     Flights.Add(f.Number, f);
+                    AddFlight(f);
                 }
             });
         }
@@ -119,9 +121,12 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                if (MessageBox.Show($"Вы действительно хотите удалить авиарейс с номером {Current}?", 
+                if (MessageBox.Show($"Вы действительно хотите удалить авиарейс с номером {Current}?",
                     "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    DeleteFlight(Current);
                     Flights.Delete(Current);
+                }
             }, () => Current != null);
         }
 
@@ -131,7 +136,10 @@ namespace SAOD_Kursovoy.ViewModel
             {
                 if (MessageBox.Show($"Вы действительно хотите полностью очистить список?",
                     "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
                     Flights.Clear();
+                    ClearFlight();
+                }                    
             }, () => Flights.Count > 0);
         }
 

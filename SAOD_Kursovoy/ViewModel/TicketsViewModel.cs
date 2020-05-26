@@ -1,4 +1,5 @@
-﻿using SAOD_Kursovoy.Service;
+﻿using System.Windows;
+using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model;
 using SAOD_Kursovoy.Model.Data;
 
@@ -30,36 +31,62 @@ namespace SAOD_Kursovoy.ViewModel
             {
                 var num = part + i.ToString("000").Substring(0, 3);
                 Tickets.Add(new Ticket(num, flight.Number));
-            }
-                
+            }                
         }
 
-        public Command<int> Sell
+        public void OnDeleteFlight(string flight)
         {
-            get => new Command<int>((i) =>
-            {
-                //System.Windows.MessageBox.Show("Продать.");
-                //Tickets.Clear();
-                Tickets.Find(new Ticket("645867001", "ABC-003"));
-                Tickets.Current.Passport = "4007-395943";
-                Tickets.Find(new Ticket("645867005", "ABC-003"));
-                Tickets.Current.Passport = "4009-392042";
-                Tickets.Find(new Ticket("645867003", "ABC-003"));
-                Tickets.Current.Passport = "4001-893939";
-                Tickets.Find(new Ticket("645867007", "ABC-003"));
-                Tickets.Current.Passport = "4001-893943";
-                Tickets.OnCollectionChanged();
-            });
+            var listDelete = new List<Ticket>();
+            foreach (var t in Tickets)
+                if (t.Flight == flight)
+                    listDelete.Add(t);
+            foreach (var t in listDelete)
+                Tickets.Delete(t);
         }
 
-        public Command<int> Return
+        public void OnClearFlight()
         {
-            get => new Command<int>((i) =>
+            Tickets.Clear();
+        }
+
+        public Command<Ticket> Sell
+        {
+            get => new Command<Ticket>((t) =>
             {
-                //System.Windows.MessageBox.Show("Вернуть.");
-                //Tickets.Delete(new Ticket() { Number = "000111220", Flight = "ABC-001" });
-                //Tickets.Delete(new Ticket() { Number = "000111222", Flight = "ABC-003" });
-            });
+                var mv = App.Current.MainWindow as View.MainWindow;
+                if ((mv.PassengersVM as PassengersViewModel).Passengers.Count > 0)
+                {
+                    var d = new View.RegistrationTicket(t.Number, t.Flight);
+                    if (d.ShowDialog() == true)
+                    {
+                        t.Passport = d.Result;
+
+                        var flights = (mv.FlightsVM as FlightsViewModel).Flights;
+                        var flight = flights.Find(t.Flight);
+                        if (flight != null)
+                            flight.NumberOfSeatsFree--;
+                    }
+                }
+                else
+                    MessageBox.Show("В системе не зарегстрированно ни одного пользователя.");
+            }, (t) => t != null && t.Passport == null);
+        }
+
+        public Command<Ticket> Return
+        {
+            get => new Command<Ticket>((t) =>
+            {
+                if (MessageBox.Show($"Вы действительно хотите вернуть билет с номером {t.Number}?",
+                    "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    t.Passport = null;
+                    var mv = App.Current.MainWindow as View.MainWindow;
+                    var flights = (mv.FlightsVM as FlightsViewModel).Flights;
+                    var flight = flights.Find(t.Flight);
+                    if (flight != null)
+                        flight.NumberOfSeatsFree++;
+                }
+            }, (t) => t != null && t.Passport != null);
         }
     }
 }

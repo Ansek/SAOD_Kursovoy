@@ -97,6 +97,9 @@
     <Compile Include="View\PassengersPage.xaml.cs">
       <DependentUpon>PassengersPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RegistrationTicket.xaml.cs">
+      <DependentUpon>RegistrationTicket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TicketsPage.xaml.cs">
       <DependentUpon>TicketsPage.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\PassengersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegistrationTicket.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

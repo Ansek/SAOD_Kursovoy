@@ -21,6 +21,8 @@ namespace SAOD_Kursovoy.View
 
             // Связь событий с другими станицами
             (FlightsVM as FlightsViewModel).AddFlight += (TicketsVM as TicketsViewModel).OnAddFlight;
+            (FlightsVM as FlightsViewModel).DeleteFlight += (TicketsVM as TicketsViewModel).OnDeleteFlight;
+            (FlightsVM as FlightsViewModel).ClearFlight += (TicketsVM as TicketsViewModel).OnClearFlight;
         }
 
     }

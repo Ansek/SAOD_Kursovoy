@@ -19,8 +19,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <DockPanel Grid.Row="1" HorizontalAlignment="Right" Margin="3">
-            <Button Content="Продать" Command="{Binding Sell}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
-            <Button Content="Вернуть" Command="{Binding Return}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
+            <Button Content="Продать" Command="{Binding Sell}" CommandParameter="{Binding ElementName=table, Path=SelectedItem}"/>
+            <Button Content="Вернуть" Command="{Binding Return}" CommandParameter="{Binding ElementName=table, Path=SelectedItem}"/>
         </DockPanel>
     </Grid>
 </Page>

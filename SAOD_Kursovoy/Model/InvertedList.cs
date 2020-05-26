@@ -22,7 +22,10 @@ namespace SAOD_Kursovoy.Model
             // Разбиваем слово по пробелам
             foreach (var s in foreign.Split(' '))
                 if (_invertedList.Find(s)) // Проверяем наличие ключа
-                    _invertedList.Current.Indexes.Add(primary);         // Добавляем еще индекс
+                {
+                    if (!_invertedList.Current.Indexes.Find(primary))
+                        _invertedList.Current.Indexes.Add(primary);         // Добавляем еще индекс
+                }
                 else
                     _invertedList.Add(new InvertedIndex(s, primary));   // Добавляем, если нет
         }
