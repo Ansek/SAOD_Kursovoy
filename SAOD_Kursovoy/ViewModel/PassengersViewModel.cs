@@ -11,7 +11,7 @@ namespace SAOD_Kursovoy.ViewModel
     class PassengersViewModel : INotifyPropertyChanged
     {
         public HashTable<Passenger> Passengers { get; set; }
-        private InvertedList _list;
+        public InvertedList InvertedList { get; set; }
 
         /// <summary>
         /// Содержит результат поиска пассажира по № пасспорта.
@@ -41,7 +41,7 @@ namespace SAOD_Kursovoy.ViewModel
         public PassengersViewModel()
         {
             Passengers = new HashTable<Passenger>(Algorithm.GetHash);
-            _list = new InvertedList();
+            InvertedList = new InvertedList();
         }
 
         public Command<string> FindByPassport
@@ -57,6 +57,7 @@ namespace SAOD_Kursovoy.ViewModel
                     foreach (var el in tickets)
                         if (el.Passport == passengers.Passport)
                             list.Add(el.Flight);
+                    list.Sort();
                     ResultFindByPassport = new ResFindP(passengers, list);
                     Current = passengers.Passport;
                     OnPropertyChanged("Current");
@@ -71,7 +72,7 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command<string>((fio) =>
             {
-                var result = _list.Find(fio);
+                var result = InvertedList.Find(fio);
                 if (result != null)
                 {
                     ResultFindByFIO = new List<ResFindF>();
@@ -82,6 +83,7 @@ namespace SAOD_Kursovoy.ViewModel
                         var r = new ResFindF(p.Passport, p.FIO);
                         ResultFindByFIO.Add(r);
                     }
+                    ResultFindByFIO.Sort();
                 }
                 else
                     ResultFindByFIO = null;
@@ -98,7 +100,7 @@ namespace SAOD_Kursovoy.ViewModel
                 {
                     var p = d.DataContext as Passenger;
                     Passengers.Add(p.Passport, p);
-                    _list.Add(p.FIO, p.Passport);
+                    InvertedList.Add(p.FIO, p.Passport);
                 }
             });
         }
@@ -112,7 +114,7 @@ namespace SAOD_Kursovoy.ViewModel
                 {
                     var pas = Passengers.Find(Current);
                     Passengers.Delete(pas.Passport);
-                    _list.Delete(pas.FIO, pas.Passport);
+                    InvertedList.Delete(pas.FIO, pas.Passport);
                 }
             }, () => Current != null);
         }
@@ -125,7 +127,7 @@ namespace SAOD_Kursovoy.ViewModel
                     "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     Passengers.Clear();
-                    _list.Clear();
+                    InvertedList.Clear();
                 }                    
             }, () => Passengers.Count > 0);
         }

@@ -101,7 +101,6 @@ namespace SAOD_Kursovoy.Model
 
 			Log.Add($"Добавлен объект \"{value}\".");
 			_count++;   // Увеличение количества
-			Sort();
 
 			// Оповещение об изменении коллекции
 			OnCollectionChanged();

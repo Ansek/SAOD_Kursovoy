@@ -69,6 +69,7 @@ namespace SAOD_Kursovoy.ViewModel
                             if (pas != null)
                                 list.Add(new Tuple<string, string>(pas.Passport, pas.FIO));
                         }
+                    list.Sort();
                     ResultFindByFlight = new ResFindF(flight, list);
                     Current = flight.Number;
                     OnPropertyChanged("Current");
@@ -95,6 +96,7 @@ namespace SAOD_Kursovoy.ViewModel
                         var r = new ResFindA(f.Number, f.ArrivalAirport, f.DeparturesDate, f.DeparturesTime);
                         ResultFindByAirport.Add(r);
                     }
+                    ResultFindByAirport.Sort();
                 }
                 else
                     ResultFindByAirport = null;

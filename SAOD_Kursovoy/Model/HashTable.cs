@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model.Elements;
+
 
 namespace SAOD_Kursovoy.Model
 {
     /// <summary>
     /// Хеш-таблица.
     /// </summary>
-    class HashTable<T> : IEnumerable, INotifyCollectionChanged
+    class HashTable<T> : IEnumerable<T>, INotifyCollectionChanged
     {
         private const ushort _sizeSegments = 1024;  // Размер сегмента
         private const byte _c = 2;  // Константы для квадратичного опробования: 
@@ -41,6 +43,7 @@ namespace SAOD_Kursovoy.Model
             uint hash = _getHash(key);  // Получение хеш-значения
             uint _startHash = hash;     // Сохранение начального значения
             uint i = 1;                 // Отслеживание количество попыток
+            Log.Add($"Для ключа {key} получено значение {hash}");
 
             // Поиск элемента по ключу
             while (_array[hash] != null && _array[hash]?.Key != key)
@@ -48,6 +51,7 @@ namespace SAOD_Kursovoy.Model
                 i++; // Увелечение значения попыток
                 // Расчет по квадратичному опробованию: адрес = h(x) + c·i + d·i^2
                 hash = Convert.ToUInt32(_getHash(key) + _c * i + _d * i * i);
+                Log.Add($"Исправление коллизии для ключа {key}. Новый адрес {hash} = {_getHash(key)} + {_c} * {i} + {_d} * {i}^2");
 
                 // Проверка на выход за диапазон
                 if (hash > MaxCount)
@@ -189,6 +193,14 @@ namespace SAOD_Kursovoy.Model
             return new HashTableEnumerator<T>(_array);
         }
 
+        /// <summary>
+        /// Возвращает перечислитель для хеш-таблицы. 
+        /// </summary>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new HashTableEnumerator<T>(_array);
+        }
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         /// <summary>
         /// Оповещает об изменении в коллекции.
@@ -203,7 +215,7 @@ namespace SAOD_Kursovoy.Model
     /// <summary>
     /// Перечеслитель для элементов хеш-таблицы.
     /// </summary>
-    class HashTableEnumerator<T> : IEnumerator
+    class HashTableEnumerator<T> : IEnumerator<T>
     {
         private HashElements<T>[] _array; // Массив элементов
         private int i;  // Указывает позицию текущего элемента
@@ -213,6 +225,8 @@ namespace SAOD_Kursovoy.Model
         {
             _array = array;
         }
+
+        public T Current => _array[i].Value; // Текущий элемент
 
         object IEnumerator.Current => _array[i].Value; // Текущий элемент
 
@@ -231,6 +245,10 @@ namespace SAOD_Kursovoy.Model
         public void Reset()
         {
             i = -1;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

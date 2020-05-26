@@ -90,6 +90,10 @@
         <Setter Property="FontSize" Value="16"/>
     </Style>
     
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
     <!-- Cтиль для заголовков -->
     <Style x:Key="Title" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="16"/>

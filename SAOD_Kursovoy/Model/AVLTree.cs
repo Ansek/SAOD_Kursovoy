@@ -30,6 +30,7 @@ namespace SAOD_Kursovoy.Model
         /// <param name="a">Ссылка на узел.</param>
         private void RotateLeft(ref TreeElement<T> a)
         {
+            Log.Add($"Для a={a.Key} применено левое вращение с b={a.Right.Key}");
             var b = a.Right;    // Подъем правого узла вверх
             a.Right = b.Left;
             b.Left = a;
@@ -44,6 +45,7 @@ namespace SAOD_Kursovoy.Model
         /// <param name="a">Ссылка на узел.</param>
         private void RotateRight(ref TreeElement<T> a)
         {
+            Log.Add($"Для a={a.Key} применено левое вращение с b={a.Left.Key}");
             var b = a.Left;     // Подъем левого узла вверх
             a.Left = b.Right;
             b.Right = a;
@@ -63,6 +65,7 @@ namespace SAOD_Kursovoy.Model
                 // Балансировка для текущего элемента
                 var node = path.Pop();
                 node.RefreshHeight(); // Обновление высоты
+                Log.Add($"Значение баланса для {node.Key} равно {node.BalanceFactor}");
 
                 //Если перекос влево
                 if (node.BalanceFactor == -2)

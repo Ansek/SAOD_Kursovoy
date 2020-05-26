@@ -31,7 +31,8 @@ namespace SAOD_Kursovoy.ViewModel
             {
                 var num = part + i.ToString("000").Substring(0, 3);
                 Tickets.Add(new Ticket(num, flight.Number));
-            }                
+            }
+            Tickets.Sort();
         }
 
         public void OnDeleteFlight(string flight)
