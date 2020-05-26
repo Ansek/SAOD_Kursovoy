@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace SAOD_Kursovoy.Model.Data
 {
-    class Passenger : INotifyPropertyChanged
-    {
+    class Passenger : INotifyPropertyChanged, IDataErrorInfo
+	{
 		private string _passport;
 		/// <summary>
 		/// Значение паспорта в формате NNNN-NNNNNN.
@@ -60,6 +61,44 @@ namespace SAOD_Kursovoy.Model.Data
 		public void OnPropertyChanged(string name)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
+
+		public bool IsFieldsNotNull => _passport != null && _placeAndDate != null &&
+			_fio != null && _birthday != null;
+
+		public string Error { get; set; }
+
+		public string this[string columnName]
+		{
+			get
+			{
+				Error = string.Empty;
+				Regex regex;
+				switch (columnName)
+				{
+					case "Passport":
+						regex = new Regex("[0-9]{4}\\-[0-9]{6}$");
+						if (!regex.IsMatch(_passport))
+							Error = "Номер пасспорта должен иметь формат 'NNNN-NNNNNN'.\n" +
+								"Где N - цифра.";
+						break;
+					case "PlaceAndDate":
+						if (_placeAndDate == "")
+							Error = "Поле места и даты выдачи не должно быть пустым.";
+						break;
+					case "FIO":
+						regex = new Regex("[А-Я][a-я]+\\s[А-Я][a-я]+\\s[А-Я][a-я]+$");
+						if (!regex.IsMatch(_fio))
+							Error = "Поле должно соответсвовать образцу 'Фамилия Имя Отчество'";
+						break;
+					case "Birthday":
+						regex = new Regex("[0-3][0-9]\\.[0-1][0-9]\\.[0-9]{4}$");
+						if (!regex.IsMatch(_birthday))
+							Error = "Поле даты рождения должно быть в формате 'dd.mm.yyyy'.";
+						break;
+				}
+				return Error;
+			}
 		}
 	}
 }

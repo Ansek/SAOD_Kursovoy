@@ -13,12 +13,12 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="table" ItemsSource="{Binding Tickets}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№ авиабилета" Binding="{Binding Number}"/>
-                <DataGridTextColumn Header="№ авиарейса" Binding="{Binding Flight}"/>
-                <DataGridTextColumn Header="№ паспорта" Binding="{Binding Passport}"/>
+                <DataGridTextColumn Header="№ авиабилета" Binding="{Binding Number}" Width="*"/>
+                <DataGridTextColumn Header="№ авиарейса" Binding="{Binding Flight}" Width="*"/>
+                <DataGridTextColumn Header="№ паспорта" Binding="{Binding Passport}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DockPanel Grid.Row="1" HorizontalAlignment="Right">
+        <DockPanel Grid.Row="1" HorizontalAlignment="Right" Margin="3">
             <Button Content="Продать" Command="{Binding Sell}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
             <Button Content="Вернуть" Command="{Binding Return}" CommandParameter="{Binding ElementName=table, Path=SelectedIndex}"/>
         </DockPanel>

@@ -41,6 +41,7 @@ namespace SAOD_Kursovoy.Model.Elements
         {
             Key = key;
             Value = value;
+            _height = 1;
         }
 
         /// <summary>

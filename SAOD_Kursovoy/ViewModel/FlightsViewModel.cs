@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.ComponentModel;
 using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model;
@@ -104,84 +105,34 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Добавить.");
-                var flight = new Flight
+                var d = new View.InputFlight();
+                if (d.ShowDialog() == true)
                 {
-                    Number = "ABC-000", 
-                    Airline = "Восток",
-                    DeparturesAirport = "Москва",
-                    ArrivalAirport = "Санкт-Петербург",                    
-                    DeparturesDate = "01.06.2020",
-                    DeparturesTime = "18:00",
-                    NumberOfSeatsAll = 10,
-                    NumberOfSeatsFree = 10
-                }; 
-                switch (Flights.Count)
-                {
-                    case 0:
-                        flight.Number = "ABC-001";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 1:
-                        flight.Number = "ABC-002";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 2:
-                        flight.Number = "ABC-003";
-                        flight.ArrivalAirport = "Тверь";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 3:
-                        flight.Number = "ABC-004";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 4:
-                        flight.Number = "ABC-005";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 5:
-                        flight.Number = "ABC-006";
-                        Flights.Add(flight.Number, flight);
-                        AddFlight(flight);
-                        break;
-                    case 6:
-                        flight.Number = "ABC-007";
-                        flight.ArrivalAirport = "Тверь";
-                        Flights.Add(flight.Number, flight);
-                        break;
-                    case 7:
-                        flight.Number = "ABC-008";
-                        Flights.Add(flight.Number, flight);
-                        break;
-                    case 8:
-                        flight.Number = "ABC-009";
-                        Flights.Add(flight.Number, flight);
-                        break;
+                    var f = d.DataContext as Flight;
+                    f.NumberOfSeatsFree = f.NumberOfSeatsAll;
+                    Flights.Add(f.Number, f);
                 }
             });
         }
 
-        public Command<int> Remove
+        public Command Remove
         {
-            get => new Command<int>((i) =>
+            get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Удалить.");
-                Flights.Delete("ABC-003");
-            });
+                if (MessageBox.Show($"Вы действительно хотите удалить авиарейс с номером {Current}?", 
+                    "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    Flights.Delete(Current);
+            }, () => Current != null);
         }
 
         public Command Clear
         {
             get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Очистить.");
-                Flights.Clear();
-            });
+                if (MessageBox.Show($"Вы действительно хотите полностью очистить список?",
+                    "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    Flights.Clear();
+            }, () => Flights.Count > 0);
         }
 
         public Command<object> SetPageFind

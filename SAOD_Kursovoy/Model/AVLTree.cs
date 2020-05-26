@@ -168,6 +168,7 @@ namespace SAOD_Kursovoy.Model
             {
                 Log.Add($"Удален объект \"{_root.Value}\".\nЗначение ключа: {key}.");
                 _root = null;
+                _count = 0;
             }
             else
             {
@@ -220,10 +221,9 @@ namespace SAOD_Kursovoy.Model
                 BalanceTree(path); // Балансировка дерева
                 Log.Add($"Удален объект \"{node.Value}\".\nЗначение ключа: {key}.");
                 _count--;   // Уменьшение количества
-
-                // Оповещение об изменении коллекции
-                OnCollectionChanged();
             }
+            // Оповещение об изменении коллекции
+            OnCollectionChanged();
         }
 
         /// <summary>

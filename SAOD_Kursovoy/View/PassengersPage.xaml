@@ -22,15 +22,15 @@
         <DataGrid x:Name="table" ItemsSource="{Binding Passengers}"
                   SelectedValuePath="Passport" SelectedValue="{Binding Current}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№ паспорта" Binding="{Binding Passport}"/>
-                <DataGridTextColumn Header="Место и дата выдачи паспорта" Binding="{Binding PlaceAndDate}"/>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
-                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday}"/>
+                <DataGridTextColumn Header="№ паспорта" Binding="{Binding Passport}" Width="*"/>
+                <DataGridTextColumn Header="Место и дата выдачи паспорта" Binding="{Binding PlaceAndDate}" Width="*"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}" Width="*"/>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Frame Grid.Column="1" Content="{Binding PageFind}"/>
 
-        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="3">
             <Button Content="Поиск по &lt;№ паспорта&gt;"
                     Command="{Binding SetPageFind}" CommandParameter="{StaticResource uriFindByPassport}">
                 <Button.Triggers>

@@ -22,19 +22,19 @@
         <DataGrid x:Name="table" ItemsSource="{Binding Flights}"
                   SelectedValuePath="Number" SelectedValue="{Binding Current}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№ авиарейса" Binding="{Binding Number}"/>
-                <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Airline}"/>
-                <DataGridTextColumn Header="Аэропорт отправления" Binding="{Binding DeparturesAirport}"/>
-                <DataGridTextColumn Header="Аэропорт прибытия" Binding="{Binding ArrivalAirport}"/>
-                <DataGridTextColumn Header="Дата отправления" Binding="{Binding DeparturesDate}"/>
-                <DataGridTextColumn Header="Время отправления" Binding="{Binding DeparturesTime}"/>
-                <DataGridTextColumn Header="Мест всего" Binding="{Binding NumberOfSeatsAll}"/>
-                <DataGridTextColumn Header="Мест осталось" Binding="{Binding NumberOfSeatsFree}"/>
+                <DataGridTextColumn Header="№ авиарейса" Binding="{Binding Number}" Width="*"/>
+                <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Airline}" Width="2*"/>
+                <DataGridTextColumn Header="Аэропорт отправления" Binding="{Binding DeparturesAirport}" Width="2*"/>
+                <DataGridTextColumn Header="Аэропорт прибытия" Binding="{Binding ArrivalAirport}" Width="2*"/>
+                <DataGridTextColumn Header="Дата отправления" Binding="{Binding DeparturesDate}" Width="*"/>
+                <DataGridTextColumn Header="Время отправления" Binding="{Binding DeparturesTime}" Width="*"/>
+                <DataGridTextColumn Header="Мест всего" Binding="{Binding NumberOfSeatsAll}" Width="*"/>
+                <DataGridTextColumn Header="Мест осталось" Binding="{Binding NumberOfSeatsFree}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Frame Grid.Column="1" Content="{Binding PageFind}"/>
 
-        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="3">
             <Button Content="Поиск по &lt;№ авиарейса&gt;" 
                     Command="{Binding SetPageFind}" CommandParameter="{StaticResource uriFindByFlight}">
                 <Button.Triggers>

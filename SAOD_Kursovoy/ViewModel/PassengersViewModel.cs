@@ -1,9 +1,10 @@
-﻿using SAOD_Kursovoy.Service;
+﻿using System.Windows;
+using System.ComponentModel;
+using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model;
 using SAOD_Kursovoy.Model.Data;
 using ResFindP = System.Tuple<SAOD_Kursovoy.Model.Data.Passenger, SAOD_Kursovoy.Model.List<string>>;
 using ResFindF = System.Tuple<string, string>;
-using System.ComponentModel;
 
 namespace SAOD_Kursovoy.ViewModel
 {
@@ -92,70 +93,41 @@ namespace SAOD_Kursovoy.ViewModel
         {
             get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Зарегистрировать.");
-                switch (Passengers.Count)
+                var d = new View.InputPassenger();
+                if (d.ShowDialog() == true)
                 {
-                    case 0:
-                        Passengers.Add("4007-395943", new Passenger
-                        {
-                            Passport = "4007-395943",
-                            PlaceAndDate = "Место 21.06.2002",
-                            FIO = "Иванов Иван Иванович",
-                            Birthday = "20.03.1970"
-                        });
-                        _list.Add("Иванов Иван Иванович", "4007-395943");
-                        break;
-                    case 1:
-                        Passengers.Add("4009-392042", new Passenger
-                        {
-                            Passport = "4009-392042",
-                            PlaceAndDate = "Место 22.06.2002",
-                            FIO = "Сидоров Иван Иванович",
-                            Birthday = "20.03.1975"
-                        });
-                        _list.Add("Сидоров Иван Иванович", "4009-392042");
-                        break;
-                    case 2:
-                        Passengers.Add("4001-893939", new Passenger
-                        {
-                            Passport = "4001-893939",
-                            PlaceAndDate = "Место 23.06.2002",
-                            FIO = "Петров Иван Иванович",
-                            Birthday = "20.03.1980"
-                        });
-                        _list.Add("Петров Иван Иванович", "4001-893939");
-                        break;
-                    case 3:
-                        Passengers.Add("4001-893943", new Passenger
-                        {
-                            Passport = "4001-893943",
-                            PlaceAndDate = "Место 23.06.2002",
-                            FIO = "Федоров Максим Иванович",
-                            Birthday = "20.03.1980"
-                        });
-                        _list.Add("Федоров Максим Иванович", "4001-893943");
-                        break;
+                    var p = d.DataContext as Passenger;
+                    Passengers.Add(p.Passport, p);
+                    _list.Add(p.FIO, p.Passport);
                 }
             });
         }
 
-        public Command<int> Remove
+        public Command Remove
         {
-            get => new Command<int>((i) =>
+            get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Удалить.");
-                Passengers.Delete("4001-893939");
-                _list.Delete("Петров Иван Иванович", "4001-893939");
-            });
+                if (MessageBox.Show($"Вы действительно хотите удалить пассажира с номером паспорта {Current}?",
+                    "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    var pas = Passengers.Find(Current);
+                    Passengers.Delete(pas.Passport);
+                    _list.Delete(pas.FIO, pas.Passport);
+                }
+            }, () => Current != null);
         }
 
         public Command Clear
         {
             get => new Command(() =>
             {
-                //System.Windows.MessageBox.Show("Очистить.");
-                Passengers.Clear();
-            });
+                if (MessageBox.Show($"Вы действительно хотите полностью очистить список?",
+                    "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    Passengers.Clear();
+                    _list.Clear();
+                }                    
+            }, () => Passengers.Count > 0);
         }
 
         public Command<object> SetPageFind

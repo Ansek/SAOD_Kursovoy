@@ -89,5 +89,15 @@ namespace SAOD_Kursovoy.Model
 
             return (list.Count > 0) ? list : null;
         }
+
+        /// <summary>
+        /// Очищает весь список инвертированных индексов.
+        /// </summary>
+        public void Clear()
+        {
+            foreach (var l in _invertedList)
+                l.Indexes.Clear();
+            _invertedList.Clear();
+        }
     }
 }

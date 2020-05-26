@@ -88,6 +88,12 @@
     <Compile Include="View\FlightsPage.xaml.cs">
       <DependentUpon>FlightsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\InputFlight.xaml.cs">
+      <DependentUpon>InputFlight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InputPassenger.xaml.cs">
+      <DependentUpon>InputPassenger.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PassengersPage.xaml.cs">
       <DependentUpon>PassengersPage.xaml</DependentUpon>
     </Compile>
@@ -115,6 +121,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FlightsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InputFlight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InputPassenger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

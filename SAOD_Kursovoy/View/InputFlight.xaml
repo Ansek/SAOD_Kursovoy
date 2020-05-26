@@ -1,0 +1,120 @@
+﻿<Window x:Class="SAOD_Kursovoy.View.InputFlight"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAOD_Kursovoy.View"
+        WindowStartupLocation="CenterScreen" Height="340" Width="370"
+        Title="Добавление авиарейса" MaxHeight="340" MaxWidth="370">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+            <GradientStop Color="#FFC7C2C2" Offset="0"/>
+            <GradientStop Color="#FFD3D3DA" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Window.Resources>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="Red" BorderThickness="1" Margin="2">
+                    <AdornedElementPlaceholder x:Name="elem" Margin="0"/>
+                </Border>
+
+                <Ellipse Fill="Red" Width="20" Height="20" Grid.Column="1"/>
+                <TextBlock Text="&#10071;" Foreground="White" FontSize="12" Grid.Column="1"
+                       TextAlignment="Center" VerticalAlignment="Center"
+                       ToolTip="{Binding ElementName=elem, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Style="{StaticResource Title}" Grid.ColumnSpan="2"
+                   Text="Введите данные об авиарейсе"/>
+
+        <TextBlock Text="Номер авиарейса: " Grid.Row="1"/>
+        <TextBlock Text="Авиакомпания: " Grid.Row="2"/>
+        <TextBlock Text="Аэропорт отправления: " Grid.Row="3"/>
+        <TextBlock Text="Аэропорт прибытия: " Grid.Row="4"/>
+        <TextBlock Text="Дата отправления: " Grid.Row="5"/>
+        <TextBlock Text="Время отправления: " Grid.Row="6"/>
+        <TextBlock Text="Всего мест: " Grid.Row="7"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="Number">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="Airline">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="DeparturesAirport">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox  Grid.Row="4" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="ArrivalAirport">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="DeparturesDate">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="DeparturesTime">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+            <Binding Path="NumberOfSeatsAll">
+                <Binding.ValidationRules>
+                    <DataErrorValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+
+        <DockPanel HorizontalAlignment="Right" Grid.Row="9" Grid.ColumnSpan="3">
+            <Button x:Name="OK" Content="Добавить"/>
+            <Button Content="Отмена" IsCancel="True"/>
+        </DockPanel>
+    </Grid>
+</Window>
