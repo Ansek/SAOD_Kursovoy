@@ -4,10 +4,22 @@ using SAOD_Kursovoy.Model.Data;
 
 namespace SAOD_Kursovoy.Service
 {
+    /// <summary>
+    /// Для работы с файлом приложения.
+    /// </summary>
     static class FileService
     {
-        static string file_name = "авиабилеты.txt";
+        /// <summary>
+        /// Имя файла приложения.
+        /// </summary>
+        private static string file_name = "авиабилеты.txt";
 
+        /// <summary>
+        /// Загрузка данных из файла приложения. 
+        /// </summary>
+        /// <param name="tickets">Список авиабилетов.</param>
+        /// <param name="passengers">Список пассажиров.</param>
+        /// <param name="flights">Список авиарейсов.</param>
         public static void Load(List<Ticket> tickets, HashTable<Passenger> passengers, AVLTree<Flight> flights)
         {
             if (File.Exists(file_name))
@@ -24,6 +36,7 @@ namespace SAOD_Kursovoy.Service
                         tickets.Add(ticket);
                         s = sr.ReadLine();
                     }
+                    tickets.Sort();
                     s = sr.ReadLine(); //Passenger Section
                     while (s != "Flight Section")
                     {
@@ -59,6 +72,12 @@ namespace SAOD_Kursovoy.Service
                 }
         }
 
+        /// <summary>
+        /// Сохранение данных в файл приложения. 
+        /// </summary>
+        /// <param name="tickets">Список авиабилетов.</param>
+        /// <param name="passengers">Список пассажиров.</param>
+        /// <param name="flights">Список авиарейсов.</param>
         public static void Save(List<Ticket> tickets, HashTable<Passenger> passengers, AVLTree<Flight> flights)
         {
             using (StreamWriter sw = new StreamWriter(file_name, false))

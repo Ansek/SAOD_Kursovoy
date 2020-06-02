@@ -2,7 +2,10 @@
 
 namespace SAOD_Kursovoy.Model.Elements
 {
-    class InvertedIndex : IComparable
+	/// <summary>
+	/// Хранит список первичных  ключей для вторичного ключа.
+	/// </summary>
+	class InvertedIndex : IComparable
     {
 		private string _key;
 		/// <summary>

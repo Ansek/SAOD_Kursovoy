@@ -7,7 +7,7 @@ using SAOD_Kursovoy.ViewModel;
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для RegistrationTicket.xaml
+    /// Окно продажи билетов.
     /// </summary>
     public partial class RegistrationTicket : Window
     {

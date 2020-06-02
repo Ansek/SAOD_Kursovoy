@@ -3,6 +3,9 @@ using SAOD_Kursovoy.Model.Data;
 
 namespace SAOD_Kursovoy.Model
 {
+    /// <summary>
+    /// Класс для хранения независимых алгоритмов.
+    /// </summary>
     static class Algorithm
     {
         /// <summary>
@@ -11,9 +14,9 @@ namespace SAOD_Kursovoy.Model
         /// <param name="key">Ключ.</param>
         public static ushort GetHash(string key)
         {
-            long d = long.Parse(key.Replace("-", ""));
-            ushort i = (ushort)(d * 40503); 
-            return Convert.ToUInt16(i >> 6);
+            long d = long.Parse(key.Replace("-", ""));  // Преобразование в числовое значение
+            ushort i = (ushort)(d * 40503);             // Умножение на 2^16 * (sqrt(5) – 1)/2 
+            return Convert.ToUInt16(i >> 6);            // Приведение к диапазону 0..1023
         }
 
         /// <summary>

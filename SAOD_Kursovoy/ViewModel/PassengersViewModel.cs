@@ -8,13 +8,23 @@ using ResFindF = System.Tuple<string, string>;
 
 namespace SAOD_Kursovoy.ViewModel
 {
+    /// <summary>
+    /// Класс-посредник для пассажиров.
+    /// </summary>
     class PassengersViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Хранит данные о пассажирах.
+        /// </summary>
         public HashTable<Passenger> Passengers { get; set; }
+
+        /// <summary>
+        /// Хранит для каждого вторичного ключа список первичных.
+        /// </summary>
         public InvertedList InvertedList { get; set; }
 
         /// <summary>
-        /// Содержит результат поиска пассажира по № пасспорта.
+        /// Содержит результат поиска пассажира по номеру паспорта.
         /// </summary>
         public ResFindP ResultFindByPassport { get; set; }
 
@@ -24,7 +34,7 @@ namespace SAOD_Kursovoy.ViewModel
         public List<ResFindF> ResultFindByFIO { get; set; }
 
         /// <summary>
-        /// Для хранения текущей страницы поиска
+        /// Для хранения текущей страницы поиска.
         /// </summary>
         public object PageFind { get; set; }
 
@@ -44,6 +54,9 @@ namespace SAOD_Kursovoy.ViewModel
             InvertedList = new InvertedList();
         }
 
+        /// <summary>
+        /// Команда поиска пассажира по номеру паспорта.
+        /// </summary>
         public Command<string> FindByPassport
         {
             get => new Command<string>((key) =>
@@ -54,6 +67,7 @@ namespace SAOD_Kursovoy.ViewModel
                     var list = new List<string>();
                     var win = App.Current.MainWindow as View.MainWindow;
                     var tickets = (win.TicketsVM as TicketsViewModel).Tickets;
+                    // Получение авиариейсов на которые пассажир купил билеты
                     foreach (var el in tickets)
                         if (el.Passport == passengers.Passport)
                             list.Add(el.Flight);
@@ -68,6 +82,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, (key) => key != "");
         }
 
+        /// <summary>
+        /// Команда поиска пассажира по ФИО.
+        /// </summary>
         public Command<string> FindByFIO
         {
             get => new Command<string>((fio) =>
@@ -79,7 +96,7 @@ namespace SAOD_Kursovoy.ViewModel
                     foreach (var res in result)
                     {
                         var p = Passengers.Find(res);
-                        // Cохранение номера пасспорта и фамилии
+                        // Cохранение номера паспорта и фамилии
                         var r = new ResFindF(p.Passport, p.FIO);
                         ResultFindByFIO.Add(r);
                     }
@@ -91,6 +108,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, (fio) => fio != "");
         }
 
+        /// <summary>
+        /// Команда добавления данных о пассажире.
+        /// </summary>
         public Command Add
         {
             get => new Command(() =>
@@ -105,6 +125,9 @@ namespace SAOD_Kursovoy.ViewModel
             });
         }
 
+        /// <summary>
+        /// Команда удаления данных о пассажире.
+        /// </summary>
         public Command Remove
         {
             get => new Command(() =>
@@ -119,6 +142,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, () => Current != null);
         }
 
+        /// <summary>
+        /// Команда очистки данных о пассажире.
+        /// </summary>
         public Command Clear
         {
             get => new Command(() =>
@@ -132,6 +158,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, () => Passengers.Count > 0);
         }
 
+        /// <summary>
+        /// Команда открытия боковой вкладки поиска.
+        /// </summary>
         public Command<object> SetPageFind
         {
             get => new Command<object>((page) =>

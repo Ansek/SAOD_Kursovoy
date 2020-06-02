@@ -2,9 +2,12 @@
 
 namespace SAOD_Kursovoy.Model
 {
+    /// <summary>
+    /// Хранит список инвертированных индексов.
+    /// </summary>
     class InvertedList
     {
-        List<InvertedIndex> _invertedList; // Хранит список с инвертированными индексами
+        private List<InvertedIndex> _invertedList; // Хранит список с инвертированными индексами
 
         public InvertedList()
         {

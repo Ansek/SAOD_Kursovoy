@@ -3,7 +3,7 @@
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для FindByFIOPage.xaml
+    /// Боковая вкладка для поиска пассажира по ФИО
     /// </summary>
     public partial class FindByFIOPage : Page
     {

@@ -8,7 +8,7 @@ using SAOD_Kursovoy.Model.Elements;
 namespace SAOD_Kursovoy.Model
 {
     /// <summary>
-    /// АВЛ-дерево.
+    /// Реализует структуру АВЛ-дерева.
     /// </summary>
     class AVLTree<T> : IEnumerable<T>, INotifyCollectionChanged
     {

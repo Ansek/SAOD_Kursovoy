@@ -5,7 +5,7 @@ using SAOD_Kursovoy.Service;
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для InputPasseger.xaml
+    /// Окно добавления данных о пассажире.
     /// </summary>
     public partial class InputPassenger : Window
     {

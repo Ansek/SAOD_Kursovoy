@@ -1,7 +1,9 @@
-﻿
-namespace SAOD_Kursovoy.Model.Elements
+﻿namespace SAOD_Kursovoy.Model.Elements
 {
-    class ListElement<T>
+	/// <summary>
+	/// Хранит данные об элементе списка.
+	/// </summary>
+	class ListElement<T>
     {
 		private T _value;
 		/// <summary>

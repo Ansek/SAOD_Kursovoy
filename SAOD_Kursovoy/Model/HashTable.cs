@@ -5,11 +5,10 @@ using System.Collections.Specialized;
 using SAOD_Kursovoy.Service;
 using SAOD_Kursovoy.Model.Elements;
 
-
 namespace SAOD_Kursovoy.Model
 {
     /// <summary>
-    /// Хеш-таблица.
+    /// Реализует структуру хеш-таблицы.
     /// </summary>
     class HashTable<T> : IEnumerable<T>, INotifyCollectionChanged
     {
@@ -213,12 +212,12 @@ namespace SAOD_Kursovoy.Model
     }
 
     /// <summary>
-    /// Перечеслитель для элементов хеш-таблицы.
+    /// Перечислитель для элементов хеш-таблицы.
     /// </summary>
     class HashTableEnumerator<T> : IEnumerator<T>
     {
         private HashElements<T>[] _array; // Массив элементов
-        private int i;  // Указывает позицию текущего элемента
+        private uint i;  // Указывает позицию текущего элемента
 
         // Конструктор для получения массива
         public HashTableEnumerator(HashElements<T>[] array)
@@ -233,7 +232,7 @@ namespace SAOD_Kursovoy.Model
         // Перемещает перечислитель к следующему элементу коллекции
         public bool MoveNext()
         {
-            i++; // Увеличиваем индекс
+            i++;
             // Пока элемент пустой 
             while (i < _array.Length && (_array[i] == null || _array[i].IsDelete))
                 i++; // Увеличиваем индекс
@@ -244,7 +243,7 @@ namespace SAOD_Kursovoy.Model
         // Установка перечислителя в начальное положение
         public void Reset()
         {
-            i = -1;
+            i = uint.MaxValue;
         }
 
         public void Dispose()

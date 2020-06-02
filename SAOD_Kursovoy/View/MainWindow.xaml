@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:SAOD_Kursovoy.View" Closed="Window_Closed"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Авиабилеты" Height="650" Width="1000">
+        Title="Продажа авиабилетов" Height="650" Width="1000">
     <Window.Resources>
         <view:TicketsPage x:Key="uriTickets"/>
         <view:PassengersPage x:Key="uriPassengers"/>

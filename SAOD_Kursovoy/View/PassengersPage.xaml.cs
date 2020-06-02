@@ -3,7 +3,7 @@
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для PassengersPage.xaml
+    /// Вкладка "Пассажиры".
     /// </summary>
     public partial class PassengersPage : Page
     {

@@ -7,7 +7,10 @@ using SAOD_Kursovoy.Model.Elements;
 
 namespace SAOD_Kursovoy.Model
 {
-    class List<T> : IEnumerable<T>, INotifyCollectionChanged
+	/// <summary>
+	/// Реализует структуру циклического однонаправленного списка.
+	/// </summary>
+	class List<T> : IEnumerable<T>, INotifyCollectionChanged
 	{
 		private ListElement<T> _current; // Текущий просматриваемый элемент
 
@@ -159,8 +162,9 @@ namespace SAOD_Kursovoy.Model
 			OnCollectionChanged();
 		}
 
-		// Просмотреть элементы и найти максимум
-		// Поменять его с последним из неотсортированным
+		/// <summary>
+		/// Сортировка элементов списка по алгоритму извлечения.
+		/// </summary>
 		public void Sort()
 		{
 			if (_current != null)
@@ -227,13 +231,13 @@ namespace SAOD_Kursovoy.Model
 	}
 
 	/// <summary>
-	/// Перечеслитель для элементов списка.
+	/// Перечислитель для элементов списка.
 	/// </summary>
 	class ListEnumerator<T> : IEnumerator<T>
 	{
 		private ListElement<T> _current; // Текущий просматриваемый элемент
-		private T _p;	// Первое значение, для остановки просмотра списка
-		bool is_begin = false; // Флаг начала перебора
+		private T _p;   // Первое значение, для остановки просмотра списка
+		private bool is_begin = false; // Флаг начала перебора
 
 		// Конструктор для получения ссылки на текущий элемент
 		public ListEnumerator(ListElement<T> current)

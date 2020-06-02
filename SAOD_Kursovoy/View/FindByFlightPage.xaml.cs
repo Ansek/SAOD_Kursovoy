@@ -3,7 +3,7 @@
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для FindByFlightPage.xaml
+    /// Боковая вкладка для поиска авиарейса по номеру авиарейса
     /// </summary>
     public partial class FindByFlightPage : Page
     {

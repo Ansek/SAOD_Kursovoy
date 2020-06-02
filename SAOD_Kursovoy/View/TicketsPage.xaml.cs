@@ -3,7 +3,7 @@
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для TicketsPage.xaml
+    /// Вкладка «Авиабилеты».
     /// </summary>
     public partial class TicketsPage : Page
     {

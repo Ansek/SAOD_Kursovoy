@@ -1,5 +1,8 @@
 ﻿namespace SAOD_Kursovoy.Model.Elements
 {
+	/// <summary>
+	/// Хранит данные о хеш-элементе.
+	/// </summary>
     class HashElements<T>
     {
 		/// <summary>
@@ -14,7 +17,7 @@
 
 		private bool _isDelete;
 		/// <summary>
-		/// Определяет помечен ли элемент на удалание.
+		/// Определяет помечен ли элемент на удаление.
 		/// </summary>
 		public bool IsDelete { get; set; }
 

@@ -3,7 +3,10 @@ using System.ComponentModel;
 
 namespace SAOD_Kursovoy.Model.Data
 {
-    class Ticket : INotifyPropertyChanged, IComparable
+	/// <summary>
+	/// Для хранения данных об авиабилетах.
+	/// </summary>
+	class Ticket : INotifyPropertyChanged, IComparable
 	{
 		private string _number;
 		/// <summary>
@@ -27,7 +30,7 @@ namespace SAOD_Kursovoy.Model.Data
 
 		private string _passport;
 		/// <summary>
-		/// Значение паспорта в формате NNNN-NNNNNN.
+		/// Значение паспорта в формате "NNNN-NNNNNN".
 		/// </summary>
 		public string Passport
 		{
@@ -51,7 +54,10 @@ namespace SAOD_Kursovoy.Model.Data
 			return a._number == b._number && a._flight == b._flight;
 		}
 
-		// Задает логику сравнения двух объектов
+		/// <summary>
+		/// Задает логику сравнения двух объектов.
+		/// </summary>
+		/// <param name="obj">Сравниваемый объект.</param>
 		public int CompareTo(object obj)
 		{
 			Ticket a = this;
@@ -63,7 +69,9 @@ namespace SAOD_Kursovoy.Model.Data
 			return a._flight.CompareTo(b._flight);
 		}
 
-		// Возвращает данные о билете.
+		/// <summary>
+		/// Возвращает данные о билете.
+		/// </summary>
 		public override string ToString()
 		{
 			return $"№ авиабилета: {_number}; № авиарейса: {_flight}; № паспорта {_passport}.";

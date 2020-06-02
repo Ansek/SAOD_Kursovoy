@@ -3,11 +3,14 @@ using System.Text.RegularExpressions;
 
 namespace SAOD_Kursovoy.Model.Data
 {
+	/// <summary>
+	/// Для хранения данных о пассажире.
+	/// </summary>
     class Passenger : INotifyPropertyChanged, IDataErrorInfo
 	{
 		private string _passport;
 		/// <summary>
-		/// Значение паспорта в формате NNNN-NNNNNN.
+		/// Значение паспорта в формате "NNNN-NNNNNN".
 		/// </summary>
 		public string Passport
 		{
@@ -46,7 +49,7 @@ namespace SAOD_Kursovoy.Model.Data
 		}
 
 		/// <summary>
-		/// Возвращет данные о пассажире.
+		/// Возвращает данные о пассажире.
 		/// </summary>
 		public override string ToString()
 		{
@@ -63,11 +66,16 @@ namespace SAOD_Kursovoy.Model.Data
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
+		/// <summary>
+		/// Проверяет все поля не пустые значения.
+		/// </summary>
 		public bool IsFieldsNotNull => _passport != null && _placeAndDate != null &&
 			_fio != null && _birthday != null;
 
+		// Возвращает сообщение об ошибке
 		public string Error { get; set; }
 
+		// Проводит проверку на наличие ошибок в данных
 		public string this[string columnName]
 		{
 			get
@@ -89,7 +97,7 @@ namespace SAOD_Kursovoy.Model.Data
 					case "FIO":
 						regex = new Regex("[А-Я][a-я]+\\s[А-Я][a-я]+\\s[А-Я][a-я]+$");
 						if (!regex.IsMatch(_fio))
-							Error = "Поле должно соответсвовать образцу 'Фамилия Имя Отчество'";
+							Error = "Поле должно соответствовать образцу 'Фамилия Имя Отчество'";
 						break;
 					case "Birthday":
 						regex = new Regex("[0-3][0-9]\\.[0-1][0-9]\\.[0-9]{4}$");

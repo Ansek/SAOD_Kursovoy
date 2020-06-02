@@ -3,7 +3,7 @@
 namespace SAOD_Kursovoy.View
 {
     /// <summary>
-    /// Логика взаимодействия для FindByPassportPage.xaml
+    /// Боковая вкладка для поиска пассажира по номеру паспорта
     /// </summary>
     public partial class FindByPassportPage : Page
     {

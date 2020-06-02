@@ -3,7 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace SAOD_Kursovoy.Model.Data
 {
-    class Flight : INotifyPropertyChanged, IDataErrorInfo
+	/// <summary>
+	/// Для хранения данных об авиарейсе.
+	/// </summary>
+	class Flight : INotifyPropertyChanged, IDataErrorInfo
 	{
 		private string _number;
 		/// <summary>
@@ -86,7 +89,7 @@ namespace SAOD_Kursovoy.Model.Data
 		}
 
 		/// <summary>
-		/// Возвращет данные о авиарейсе.
+		/// Возвращает данные о авиарейсе.
 		/// </summary>
 		public override string ToString()
 		{
@@ -105,14 +108,18 @@ namespace SAOD_Kursovoy.Model.Data
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
+		/// <summary>
+		/// Проверяет все поля не пустые значения.
+		/// </summary>
 		public bool IsFieldsNotNull => _number != null && _airline != null &&
 			_departuresAirport != null && _arrivalAirport != null &&
 			_departuresDate != null && _departuresTime != null &&
 			_numberOfSeatsAll > 0;
 
+		// Возвращает сообщение об ошибке
 		public string Error { get; set; }
 
-		// Проверка полей на наличие ошибок 
+		// Проводит проверку на наличие ошибок в данных 
 		public string this[string columnName]
 		{
 			get

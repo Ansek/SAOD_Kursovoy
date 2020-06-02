@@ -2,6 +2,9 @@
 
 namespace SAOD_Kursovoy.Model.Elements
 {
+    /// <summary>
+    /// Хранит данные об узле дерева.
+    /// </summary>
     class TreeElement<T>
     {
         private TreeElement<T> _left;

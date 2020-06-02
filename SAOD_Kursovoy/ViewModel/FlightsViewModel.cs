@@ -9,10 +9,24 @@ using ResFindA = System.Tuple<string, string, string, string>;
 
 namespace SAOD_Kursovoy.ViewModel
 {
+    /// <summary>
+    /// Класс-посредник для авиарейсов.
+    /// </summary>
     class FlightsViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Оповещает о добавлении авиарейса.
+        /// </summary>
         public event Action<Flight> AddFlight;
+
+        /// <summary>
+        /// Оповещает об удалении авиарейса.
+        /// </summary>
         public event Action<string> DeleteFlight;
+
+        /// <summary>
+        /// Оповещает об очистке данных авиарейсов.
+        /// </summary>
         public event Action ClearFlight;
 
         /// <summary>
@@ -21,7 +35,7 @@ namespace SAOD_Kursovoy.ViewModel
         public AVLTree<Flight> Flights { get; set; }
 
         /// <summary>
-        /// Содержит результат поиска авиарейса по № авиарейса.
+        /// Содержит результат поиска авиарейса по номеру авиарейса.
         /// </summary>
         public ResFindF ResultFindByFlight { get; set; }
 
@@ -31,7 +45,7 @@ namespace SAOD_Kursovoy.ViewModel
         public List<ResFindA> ResultFindByAirport { get; set; }
 
         /// <summary>
-        /// Для хранения текущей страницы поиска
+        /// Для хранения текущей страницы поиска.
         /// </summary>
         public object PageFind { get; set; }
 
@@ -50,6 +64,9 @@ namespace SAOD_Kursovoy.ViewModel
             Flights = new AVLTree<Flight>();
         }
 
+        /// <summary>
+        /// Команда поиска авиарейса по номеру авиарейса. 
+        /// </summary>
         public Command<string> FindByFlight
         {
             get => new Command<string>((key) =>
@@ -80,6 +97,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, (key) => key != "");
         }
 
+        /// <summary>
+        /// Команда поиска авиарейса по аэропорту прибытия.
+        /// </summary>
         public Command<string> FindByAirport
         {
             get => new Command<string>((text) =>
@@ -104,6 +124,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, (text) => text != "");
         }
 
+        /// <summary>
+        /// Команда добавления данных об авиарейсе.
+        /// </summary>
         public Command Add
         {
             get => new Command(() =>
@@ -119,6 +142,9 @@ namespace SAOD_Kursovoy.ViewModel
             });
         }
 
+        /// <summary>
+        /// Команда удаления данных об авиарейсе.
+        /// </summary>
         public Command Remove
         {
             get => new Command(() =>
@@ -132,6 +158,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, () => Current != null);
         }
 
+        /// <summary>
+        /// Команда очистки данных об авиарейсах.
+        /// </summary>
         public Command Clear
         {
             get => new Command(() =>
@@ -145,6 +174,9 @@ namespace SAOD_Kursovoy.ViewModel
             }, () => Flights.Count > 0);
         }
 
+        /// <summary>
+        /// Команда открытия боковой вкладки поиска.
+        /// </summary>
         public Command<object> SetPageFind
         {
             get => new Command<object>((page) =>
