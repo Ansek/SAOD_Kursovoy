@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Image Source="C:\Users\Александр\Desktop\3.png" Margin="5"/>
+            <Image Source="pack://application:,,,/logo.png" Margin="5"/>
             <Border Grid.Column="2" VerticalAlignment="Center" Margin="10"
                     BorderBrush="#175182" BorderThickness="3" CornerRadius="10">
                 <Border.Clip>
